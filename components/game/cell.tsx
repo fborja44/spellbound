@@ -1,15 +1,18 @@
 import { Zap } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Letter } from '@/constants/letters';
 import { Badge } from '../ui/badge';
+import { Letter } from '@/lib/validators/game-state';
+import type { Cell } from '@/lib/validators/game-state';
 
 interface CellProps {
 	letter: Letter;
 	isCharged?: boolean;
-	bonus?: 'DL';
+	bonus?: Cell['bonus'];
+	row: number;
+	col: number;
 }
 
-const Cell = ({ letter, isCharged, bonus }: CellProps) => {
+const Cell = ({ letter, isCharged, bonus, row, col }: CellProps) => {
 	return (
 		<Button
 			variant='ghost'
