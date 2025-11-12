@@ -137,4 +137,8 @@
 	.container-center {
 		@apply flex flex-row items-center justify-center;
 	}
+
+	.game-header-h {
+		@apply h-15;
+	}
 }

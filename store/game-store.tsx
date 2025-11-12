@@ -1,11 +1,14 @@
 import { LETTERS } from '@/constants/letters';
-import { Cell, GameState } from '@/lib/validators/game-state';
+import { Cell, CellPosition, GameState } from '@/lib/validators/game-state';
 import { create } from 'zustand';
 import { pickRandomLetter } from '@/lib/utils';
 
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
 	setCell: (row: number, col: number, cell: Cell) => void;
+	setSelectedCells: (
+		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
+	) => void;
 	randomizeBoard: () => void;
 }
 
@@ -29,6 +32,11 @@ const useGameStore = create<GameStore>()((set) => ({
 			newBoard[row][col] = cell;
 			return { board: newBoard };
 		}),
+	setSelectedCells: (updater) =>
+		set((state) => ({
+			selectedCells:
+				typeof updater === 'function' ? updater(state.selectedCells) : updater,
+		})),
 	randomizeBoard: () => {
 		set((state) => {
 			const newBoard = state.board.map((row) =>

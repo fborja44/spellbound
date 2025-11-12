@@ -26,6 +26,7 @@ export const CellPositionSchema = z.object({
 		.min(0)
 		.max(GRID_HEIGHT - 1),
 });
+export type CellPosition = z.infer<typeof CellPositionSchema>;
 
 export const GameStateSchema = z
 	.object({
