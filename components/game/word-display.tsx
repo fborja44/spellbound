@@ -1,7 +1,7 @@
 'use client';
 
+import { calculateScore } from '@/lib/utils';
 import useGameStore from '@/store/game-store';
-import { Plus } from 'lucide-react';
 
 const WordDisplay = () => {
 	const board = useGameStore((state) => state.board);
@@ -14,10 +14,7 @@ const WordDisplay = () => {
 			<span>{letters.map((l) => l.letter.char).join('')}</span>
 			{selectedCells.length > 0 && (
 				<div className='container-row tracking-normal text-yellow-200'>
-					+
-					{letters
-						.map((l) => l.letter.score)
-						.reduce((acc, score) => acc + score, 0)}
+					+{calculateScore(letters)}
 				</div>
 			)}
 		</div>

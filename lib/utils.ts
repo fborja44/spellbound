@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { LETTERS } from '@/constants/letters';
 import words from '@/data/words_dictionary.json';
-import { Letter } from './validators/game-state';
+import { Cell, Letter } from './validators/game-state';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -59,4 +59,13 @@ export function pickRandomLetter(prevChar?: string): Letter {
  */
 export function isValidWord(word: string) {
 	return words.hasOwnProperty(word.toLowerCase());
+}
+
+/**
+ * Calculates the score of a word based on its letters.
+ * @param word - An array of Letter objects representing the word.
+ * @returns The total score of the word.
+ */
+export function calculateScore(word: Cell[]) {
+	return word.reduce((sum, cell) => sum + cell.letter.score, 0);
 }

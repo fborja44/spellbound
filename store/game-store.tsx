@@ -2,10 +2,14 @@ import { LETTERS } from '@/constants/letters';
 import { Cell, CellPosition, GameState } from '@/lib/validators/game-state';
 import { create } from 'zustand';
 import { pickRandomLetter } from '@/lib/utils';
-import { PROBABILITIES } from '@/constants/game';
+import { MAX_ENERGY, PROBABILITIES } from '@/constants/game';
 
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
+	setScore: (score: number) => void;
+	addScore: (points: number) => void;
+	setEnergy: (energy: number) => void;
+	addEnergy: (energy: number) => void;
 	setCell: (row: number, col: number, cell: Cell) => void;
 	setSelectedCells: (
 		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
@@ -15,6 +19,9 @@ export interface GameStore extends GameState {
 }
 
 const initialState: GameState = {
+	score: 0,
+	round: 1,
+	energy: 3,
 	board: new Array(5).fill(null).map(() =>
 		new Array(5).fill({
 			letter: LETTERS['?'],
@@ -28,6 +35,16 @@ const initialState: GameState = {
 const useGameStore = create<GameStore>()((set) => ({
 	...initialState,
 	setState: (state) => set((prev) => ({ ...prev, ...state })),
+	setScore: (score) => set(() => ({ score })),
+	addScore: (points) =>
+		set((state) => ({
+			score: state.score + points,
+		})),
+	setEnergy: (energy) => set(() => ({ energy: Math.min(energy, MAX_ENERGY) })),
+	addEnergy: (energy) =>
+		set((state) => ({
+			energy: Math.min(state.energy + energy, MAX_ENERGY),
+		})),
 	setCell: (row, col, cell) =>
 		set((state) => {
 			const newBoard = state.board.map((r) => r.slice());

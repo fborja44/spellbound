@@ -4,12 +4,17 @@ import useGameStore from '@/store/game-store';
 import Cell from './cell';
 import { useEffect, useState, useRef } from 'react';
 import { CellPosition } from '@/lib/validators/game-state';
+import { calculateScore, isValidWord } from '@/lib/utils';
+import { toast } from 'sonner';
 
 const Board = () => {
 	const board = useGameStore((state) => state.board);
+	const randomizeCell = useGameStore((state) => state.randomizeCell);
 	const randomizeBoard = useGameStore((state) => state.randomizeBoard);
 	const selectedCells = useGameStore((state) => state.selectedCells);
 	const setSelectedCells = useGameStore((state) => state.setSelectedCells);
+	const addScore = useGameStore((state) => state.addScore);
+	const addEnergy = useGameStore((state) => state.addEnergy);
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -56,6 +61,45 @@ const Board = () => {
 	}
 
 	function handlePointerUp() {
+		if (selectedCells.length === 0) {
+			setIsDragging(false);
+			return;
+		}
+
+		const word = selectedCells.reduce(
+			(word, c) => word + board[c.row][c.col].letter.char,
+			''
+		);
+		const score = calculateScore(selectedCells.map((c) => board[c.row][c.col]));
+		const energy = selectedCells.reduce(
+			(acc, c) => acc + (board[c.row][c.col].isCharged ? 1 : 0),
+			0
+		);
+
+		if (word.length < 3) {
+			toast('Word too short');
+			setSelectedCells([]);
+			setIsDragging(false);
+			return;
+		}
+
+		if (isValidWord(word)) {
+			selectedCells.forEach((c) => {
+				randomizeCell(c.row, c.col, true);
+			});
+			addScore(score);
+			addEnergy(energy);
+			toast(
+				<div className='container-row gap-4'>
+					<span>{word}</span>
+					<span className='text-yellow-200'>+{score}</span>
+				</div>
+			);
+		} else {
+			toast('Invalid word');
+		}
+
+		setSelectedCells([]);
 		setIsDragging(false);
 	}
 
