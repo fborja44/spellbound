@@ -9,8 +9,8 @@ const SwapButton = () => {
 	};
 
 	return (
-		<ActionButton onClick={handleSwap} icon={Shuffle}>
-			Swap
+		<ActionButton onClick={handleSwap} icon={Shuffle} cost={3}>
+			<span>Swap</span>
 		</ActionButton>
 	);
 };

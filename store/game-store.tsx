@@ -7,9 +7,9 @@ import { MAX_ENERGY, PROBABILITIES } from '@/constants/game';
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
 	setScore: (score: number) => void;
-	addScore: (points: number) => void;
+	changeScore: (points: number) => void;
 	setEnergy: (energy: number) => void;
-	addEnergy: (energy: number) => void;
+	changeEnergy: (energy: number) => void;
 	setCell: (row: number, col: number, cell: Cell) => void;
 	setSelectedCells: (
 		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
@@ -21,7 +21,7 @@ export interface GameStore extends GameState {
 const initialState: GameState = {
 	score: 0,
 	round: 1,
-	energy: 3,
+	energy: 2,
 	board: new Array(5).fill(null).map(() =>
 		new Array(5).fill({
 			letter: LETTERS['?'],
@@ -36,12 +36,12 @@ const useGameStore = create<GameStore>()((set) => ({
 	...initialState,
 	setState: (state) => set((prev) => ({ ...prev, ...state })),
 	setScore: (score) => set(() => ({ score })),
-	addScore: (points) =>
+	changeScore: (points) =>
 		set((state) => ({
 			score: state.score + points,
 		})),
 	setEnergy: (energy) => set(() => ({ energy: Math.min(energy, MAX_ENERGY) })),
-	addEnergy: (energy) =>
+	changeEnergy: (energy) =>
 		set((state) => ({
 			energy: Math.min(state.energy + energy, MAX_ENERGY),
 		})),

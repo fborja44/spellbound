@@ -1,21 +1,43 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
+import useGameStore from '@/store/game-store';
 import { ElementType } from 'react';
 
 interface ActionButtonProps {
 	onClick?: () => void;
 	icon: ElementType;
+	cost?: number;
 	children: React.ReactNode;
 }
 
-const ActionButton = ({ onClick, icon: Icon, children }: ActionButtonProps) => {
+const ActionButton = ({
+	onClick,
+	icon: Icon,
+	cost,
+	children,
+}: ActionButtonProps) => {
+	const energy = useGameStore((store) => store.energy);
+	const changeEnergy = useGameStore((store) => store.changeEnergy);
+
 	return (
 		<button
-			onClick={onClick}
-			className='flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider hover:cursor-pointer'
+			onClick={() => {
+				if (onClick) {
+					onClick();
+				}
+				changeEnergy(-(cost ?? 0));
+			}}
+			className='relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-full'
+			disabled={cost ? energy < cost : false}
 		>
 			<Icon className='size-12 stroke-3' />
 			<span>{children}</span>
+			{cost && (
+				<Badge className='rounded-full absolute left-0 top-0 bg-purple-600 text-foreground font-bold size-5'>
+					{cost}
+				</Badge>
+			)}
 		</button>
 	);
 };

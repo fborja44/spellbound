@@ -10,7 +10,7 @@ const Header = () => {
 				<span>spellbound</span>
 			</h1>
 			<div className='container-row gap-4'>
-				<Button variant='ghost' size='sm'>
+				<Button variant='ghost' size='sm' disabled>
 					<span>Join Game</span>
 				</Button>
 				<Button size='sm'>
