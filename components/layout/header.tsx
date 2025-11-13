@@ -6,7 +6,7 @@ const Header = () => {
 	return (
 		<header className='container-row justify-between h-16 px-4'>
 			<h1 className='container-row gap-2 font-bold text-xl'>
-				<Sparkles fill='currentColor' />
+				<Sparkles />
 				<span>spellbound</span>
 			</h1>
 			<div className='container-row gap-4'>

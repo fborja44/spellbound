@@ -58,7 +58,7 @@ export function pickRandomLetter(prevChar?: string): Letter {
  * @returns True if the word is valid, false otherwise.
  */
 export function isValidWord(word: string) {
-	return words.hasOwnProperty(word.toLowerCase());
+	return word.toLowerCase() in words;
 }
 
 /**

@@ -35,7 +35,7 @@ export default function RootLayout({
 								toast: 'container-center border-4 w-fit! px-8!',
 								title: 'text-2xl uppercase text-center font-extrabold!',
 							},
-							duration: 5 * 1000,
+							duration: 3 * 1000,
 						}}
 					/>
 				</ThemeProvider>
