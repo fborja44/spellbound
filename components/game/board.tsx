@@ -45,15 +45,24 @@ const Board = () => {
 
 	function handlePointerEnter(row: number, col: number) {
 		if (!isDragging) return;
+
 		setSelectedCells((prev: CellPosition[]) => {
-			// Avoid reselecting same cell
+			if (prev.length === 0) return prev;
+
+			const last = prev[prev.length - 1];
+			const secondLast = prev[prev.length - 2];
+
+			// If the user drags back onto the second-last cell,
+			// remove the last cell (undo last step)
+			if (secondLast && secondLast.row === row && secondLast.col === col) {
+				return prev.slice(0, -1);
+			}
+
+			// Avoid reselecting the same cell
 			if (prev.some((c) => c.row === row && c.col === col)) return prev;
 
 			// Only add if adjacent to last selected
-			if (
-				prev.length === 0 ||
-				isNeighbor(prev[prev.length - 1], { row, col })
-			) {
+			if (isNeighbor(last, { row, col })) {
 				return [...prev, { row, col }];
 			}
 
