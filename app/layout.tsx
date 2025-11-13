@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
 import Header from '@/components/layout/header';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -37,6 +38,15 @@ export default function RootLayout({
 				>
 					<Header />
 					{children}
+					<Toaster
+						position={'top-center'}
+						toastOptions={{
+							classNames: {
+								toast: 'container-center border-4',
+								title: 'text-2xl uppercase text-center font-extrabold!',
+							},
+						}}
+					/>
 				</ThemeProvider>
 			</body>
 		</html>

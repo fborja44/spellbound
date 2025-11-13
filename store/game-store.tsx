@@ -2,6 +2,7 @@ import { LETTERS } from '@/constants/letters';
 import { Cell, CellPosition, GameState } from '@/lib/validators/game-state';
 import { create } from 'zustand';
 import { pickRandomLetter } from '@/lib/utils';
+import { PROBABILITIES } from '@/constants/game';
 
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
@@ -9,13 +10,14 @@ export interface GameStore extends GameState {
 	setSelectedCells: (
 		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
 	) => void;
-	randomizeBoard: () => void;
+	randomizeCell: (row: number, col: number, usePrev?: boolean) => void;
+	randomizeBoard: (usePrev?: boolean) => void;
 }
 
 const initialState: GameState = {
 	board: new Array(5).fill(null).map(() =>
 		new Array(5).fill({
-			letter: LETTERS.A,
+			letter: LETTERS['?'],
 			isSelected: false,
 			isCharged: false,
 		})
@@ -37,12 +39,24 @@ const useGameStore = create<GameStore>()((set) => ({
 			selectedCells:
 				typeof updater === 'function' ? updater(state.selectedCells) : updater,
 		})),
-	randomizeBoard: () => {
+	randomizeCell: (row, col, usePrev) => {
+		set((state) => {
+			const newBoard = state.board.map((r) => r.slice());
+			newBoard[row][col] = {
+				letter: pickRandomLetter(
+					usePrev ? newBoard[row][col].letter.char : undefined
+				),
+				isCharged: Math.random() < PROBABILITIES.ENERGY,
+			};
+			return { board: newBoard };
+		});
+	},
+	randomizeBoard: (usePrev) => {
 		set((state) => {
 			const newBoard = state.board.map((row) =>
-				row.map(() => ({
-					letter: pickRandomLetter(),
-					isCharged: Math.random() < 0.2,
+				row.map((letter) => ({
+					letter: pickRandomLetter(usePrev ? letter.letter.char : undefined),
+					isCharged: Math.random() < PROBABILITIES.ENERGY,
 				}))
 			);
 			return { board: newBoard };

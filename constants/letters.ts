@@ -27,4 +27,5 @@ export const LETTERS: Record<string, Letter> = {
 	X: { char: 'X', rarity: 1, score: 7 },
 	Y: { char: 'Y', rarity: 2, score: 4 },
 	Z: { char: 'Z', rarity: 1, score: 8 },
+	'?': { char: '?', rarity: 0, score: 0 },
 };
