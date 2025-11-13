@@ -10,6 +10,7 @@ export interface GameStore extends GameState {
 	changeScore: (points: number) => void;
 	setEnergy: (energy: number) => void;
 	changeEnergy: (energy: number) => void;
+	incrementRound: () => void;
 	setCell: (row: number, col: number, cell: Cell) => void;
 	setSelectedCells: (
 		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
@@ -44,6 +45,10 @@ const useGameStore = create<GameStore>()((set) => ({
 	changeEnergy: (energy) =>
 		set((state) => ({
 			energy: Math.min(state.energy + energy, MAX_ENERGY),
+		})),
+	incrementRound: () =>
+		set(({ round }) => ({
+			round: round + 1,
 		})),
 	setCell: (row, col, cell) =>
 		set((state) => {

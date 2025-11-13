@@ -1,5 +1,6 @@
 'use client';
 
+import { geistMono } from '@/fonts';
 import useGameStore from '@/store/game-store';
 import CountUp from 'react-countup';
 
@@ -13,7 +14,7 @@ const InfoBar = () => {
 					Score
 				</span>
 				<CountUp
-					className='uppercase font-bold text-2xl leading-5'
+					className={`uppercase font-black text-2xl leading-5 ${geistMono.className}`}
 					preserveValue
 					end={score}
 				/>

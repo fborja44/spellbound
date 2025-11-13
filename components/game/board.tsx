@@ -15,6 +15,7 @@ const Board = () => {
 	const setSelectedCells = useGameStore((state) => state.setSelectedCells);
 	const changeScore = useGameStore((state) => state.changeScore);
 	const changeEnergy = useGameStore((state) => state.changeEnergy);
+	const incrementRound = useGameStore((state) => state.incrementRound);
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -89,6 +90,7 @@ const Board = () => {
 			});
 			changeScore(score);
 			changeEnergy(energy);
+			incrementRound();
 			toast(
 				<div className='container-row gap-4'>
 					<span>{word}</span>
