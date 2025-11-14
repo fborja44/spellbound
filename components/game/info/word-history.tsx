@@ -33,7 +33,7 @@ const Entry = ({ word }: EntryProps) => {
 				duration: 0.8,
 				ease: 'easeOut',
 			}}
-			className='relative flex flex-row gap-1 h-4.5 max-w-full text-slate-400 font-medium opacity-50 hover:opacity-100! hover:text-yellow-200 transition-opacity duration-150'
+			className='relative flex flex-row gap-1 h-4.5 max-w-full text-slate-400 font-bold opacity-50 hover:opacity-100! hover:text-yellow-200 transition-opacity duration-200'
 		>
 			<span className='absolute whitespace-nowrap inline-block'>
 				{word.word} +{word.score}

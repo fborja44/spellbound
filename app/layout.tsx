@@ -32,7 +32,7 @@ export default function RootLayout({
 						position={'top-center'}
 						toastOptions={{
 							classNames: {
-								toast: 'container-center border-4 w-fit! px-8!',
+								toast: 'container-center border-4 px-8!',
 								title: 'text-2xl uppercase text-center font-extrabold!',
 							},
 							duration: 3 * 1000,

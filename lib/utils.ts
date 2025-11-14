@@ -2,7 +2,8 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { LETTERS } from '@/constants/letters';
 import words from '@/data/words_dictionary.json';
-import { Cell, Letter } from './validators/game-state';
+import { Board, Cell, Letter } from './validators/game-state';
+import { PROBABILITIES } from '@/constants/game';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -68,4 +69,13 @@ export function isValidWord(word: string) {
  */
 export function calculateScore(word: Cell[]) {
 	return word.reduce((sum, cell) => sum + cell.letter.score, 0);
+}
+
+export function randomizeBoard(board: Board, usePrev?: boolean) {
+	return board.map((row) =>
+		row.map((letter) => ({
+			letter: pickRandomLetter(usePrev ? letter.letter.char : undefined),
+			isCharged: Math.random() < PROBABILITIES.ENERGY,
+		}))
+	);
 }

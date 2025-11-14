@@ -18,7 +18,7 @@ const buttonVariants = cva(
 					'bg-secondary text-secondary-foreground hover:bg-secondary/80',
 				ghost:
 					'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-				cell: 'bg-background border-foreground',
+				cell: 'bg-background border-foreground hover:bg-slate-900',
 				'cell-selected': 'bg-foreground border-sky-500 text-background',
 				link: 'text-primary underline-offset-4 hover:underline',
 			},

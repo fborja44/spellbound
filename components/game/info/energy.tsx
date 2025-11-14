@@ -35,7 +35,7 @@ const EnergyCell = ({ isFilled }: EnergyCellProps) => {
 					initial={{ scale: 0, opacity: 0 }}
 					animate={{ scale: 1, opacity: 1 }}
 					exit={{ scale: 0, opacity: 0 }}
-					transition={{ duration: 0.3 }}
+					transition={{ duration: 0.5 }}
 				>
 					<Zap className='size-3.5 text-purple-900 fill-purple-900' />
 				</motion.div>

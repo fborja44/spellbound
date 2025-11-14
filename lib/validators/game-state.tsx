@@ -38,12 +38,16 @@ export const CellPositionSchema = z.object({
 });
 export type CellPosition = z.infer<typeof CellPositionSchema>;
 
+export const BoardSchema = z.array(z.array(CellSchema).length(5)).length(5);
+export type Board = z.infer<typeof BoardSchema>;
+
 export const GameStateSchema = z
 	.object({
 		score: z.number().min(0).default(0),
 		round: z.number().min(1).default(1),
+		maxRounds: z.number().min(1).default(5),
 		energy: z.number().min(0).max(MAX_ENERGY),
-		board: z.array(z.array(CellSchema).length(5)).length(5),
+		board: BoardSchema,
 		wordHistory: z.array(WordSchema),
 		selectedCells: z.array(CellPositionSchema).max(5),
 	})

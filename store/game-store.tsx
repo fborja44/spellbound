@@ -6,12 +6,13 @@ import {
 	Word,
 } from '@/lib/validators/game-state';
 import { create } from 'zustand';
-import { pickRandomLetter } from '@/lib/utils';
+import { pickRandomLetter, randomizeBoard } from '@/lib/utils';
 import { MAX_ENERGY, PROBABILITIES } from '@/constants/game';
 
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
 	setScore: (score: number) => void;
+	startNewGame: (maxRounds: number) => void;
 	changeScore: (points: number) => void;
 	setEnergy: (energy: number) => void;
 	changeEnergy: (energy: number) => void;
@@ -29,6 +30,7 @@ export interface GameStore extends GameState {
 const initialState: GameState = {
 	score: 0,
 	round: 1,
+	maxRounds: 5,
 	energy: 2,
 	board: new Array(5).fill(null).map(() =>
 		new Array(5).fill({
@@ -45,6 +47,13 @@ const useGameStore = create<GameStore>()((set) => ({
 	...initialState,
 	setState: (state) => set((prev) => ({ ...prev, ...state })),
 	setScore: (score) => set(() => ({ score })),
+	startNewGame: (maxRounds) =>
+		set(() => {
+			const newState = { ...initialState };
+			newState.maxRounds = maxRounds;
+			newState.board = randomizeBoard(newState.board);
+			return newState;
+		}),
 	changeScore: (points) =>
 		set((state) => ({
 			score: state.score + points,
@@ -91,12 +100,7 @@ const useGameStore = create<GameStore>()((set) => ({
 	},
 	randomizeBoard: (usePrev) => {
 		set((state) => {
-			const newBoard = state.board.map((row) =>
-				row.map((letter) => ({
-					letter: pickRandomLetter(usePrev ? letter.letter.char : undefined),
-					isCharged: Math.random() < PROBABILITIES.ENERGY,
-				}))
-			);
+			const newBoard = randomizeBoard(state.board, usePrev);
 			return { board: newBoard };
 		});
 	},
