@@ -1,6 +1,6 @@
-import ActionBar from '@/components/game/action-bar';
+import ActionBar from '@/components/game/actionbar';
 import Board from '@/components/game/board';
-import InfoBar from '@/components/game/info-bar';
+import InfoBar from '@/components/game/infobar';
 import WordDisplay from '@/components/game/word-display';
 
 export default function Home() {

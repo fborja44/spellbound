@@ -1,5 +1,10 @@
 import { LETTERS } from '@/constants/letters';
-import { Cell, CellPosition, GameState } from '@/lib/validators/game-state';
+import {
+	Cell,
+	CellPosition,
+	GameState,
+	Word,
+} from '@/lib/validators/game-state';
 import { create } from 'zustand';
 import { pickRandomLetter } from '@/lib/utils';
 import { MAX_ENERGY, PROBABILITIES } from '@/constants/game';
@@ -11,6 +16,8 @@ export interface GameStore extends GameState {
 	setEnergy: (energy: number) => void;
 	changeEnergy: (energy: number) => void;
 	incrementRound: () => void;
+	setWordHistory: (wordHistory: Word[]) => void;
+	addWord: (word: Word) => void;
 	setCell: (row: number, col: number, cell: Cell) => void;
 	setSelectedCells: (
 		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
@@ -30,6 +37,7 @@ const initialState: GameState = {
 			isCharged: false,
 		})
 	),
+	wordHistory: [],
 	selectedCells: [],
 };
 
@@ -49,6 +57,14 @@ const useGameStore = create<GameStore>()((set) => ({
 	incrementRound: () =>
 		set(({ round }) => ({
 			round: round + 1,
+		})),
+	setWordHistory: (wordHistory) =>
+		set(() => ({
+			wordHistory,
+		})),
+	addWord: (word) =>
+		set(({ wordHistory }) => ({
+			wordHistory: [...wordHistory, word],
 		})),
 	setCell: (row, col, cell) =>
 		set((state) => {

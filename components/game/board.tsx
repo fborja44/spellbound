@@ -16,6 +16,7 @@ const Board = () => {
 	const changeScore = useGameStore((state) => state.changeScore);
 	const changeEnergy = useGameStore((state) => state.changeEnergy);
 	const incrementRound = useGameStore((state) => state.incrementRound);
+	const addWord = useGameStore((state) => state.addWord);
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -97,8 +98,9 @@ const Board = () => {
 			selectedCells.forEach((c) => {
 				randomizeCell(c.row, c.col, true);
 			});
-			changeScore(score);
+			// changeScore(score);
 			changeEnergy(energy);
+			addWord({ word, score, energy });
 			incrementRound();
 			toast(
 				<div className='container-row gap-4'>

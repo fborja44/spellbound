@@ -3,7 +3,7 @@
 import { Timer } from 'lucide-react';
 import RefreshButton from './buttons/refresh-button';
 import SwapButton from './buttons/swap-button';
-import EnergyBar from './energy-bar';
+import EnergyBar from './info/energy';
 import useGameStore from '@/store/game-store';
 import { AnimatePresence, motion } from 'motion/react';
 import { geistMono } from '@/fonts';

@@ -1,5 +1,4 @@
-import { Sparkles, User } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Sparkles } from 'lucide-react';
 import { Button } from '../ui/button';
 
 const Header = () => {
@@ -10,18 +9,18 @@ const Header = () => {
 				<span>spellbound</span>
 			</h1>
 			<div className='container-row gap-4'>
-				<Button variant='ghost' size='sm' disabled>
+				{/* <Button variant='ghost' size='sm' disabled>
 					<span>Join Game</span>
-				</Button>
+				</Button> */}
 				<Button size='sm'>
 					<span>New Game</span>
 				</Button>
-				<Avatar className='size-10 text-gray-400'>
+				{/* <Avatar className='size-10 text-gray-400'>
 					<AvatarImage src='' />
 					<AvatarFallback>
 						<User className='size-5' />
 					</AvatarFallback>
-				</Avatar>
+				</Avatar> */}
 			</div>
 		</header>
 	);
