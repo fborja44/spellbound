@@ -4,19 +4,16 @@ import useGameStore from '@/store/game-store';
 import Cell from './cell';
 import { useEffect, useState, useRef } from 'react';
 import { CellPosition } from '@/lib/validators/game-state';
-import { calculateScore, isValidWord } from '@/lib/utils';
-import { toast } from 'sonner';
+import useGame from '@/hooks/useGame';
 
 const Board = () => {
 	const board = useGameStore((state) => state.board);
-	const randomizeCell = useGameStore((state) => state.randomizeCell);
 	const randomizeBoard = useGameStore((state) => state.randomizeBoard);
 	const selectedCells = useGameStore((state) => state.selectedCells);
 	const setSelectedCells = useGameStore((state) => state.setSelectedCells);
-	const changeScore = useGameStore((state) => state.changeScore);
-	const changeEnergy = useGameStore((state) => state.changeEnergy);
-	const incrementRound = useGameStore((state) => state.incrementRound);
-	const addWord = useGameStore((state) => state.addWord);
+	const isCompleted = useGameStore((state) => state.isCompleted);
+
+	const { submitWord } = useGame();
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -40,11 +37,15 @@ const Board = () => {
 
 	// pointer handlers
 	function handlePointerDown(row: number, col: number) {
+		if (isCompleted) return;
+
 		setIsDragging(true);
 		setSelectedCells([{ row, col }]);
 	}
 
 	function handlePointerEnter(row: number, col: number) {
+		if (isCompleted) return;
+
 		if (!isDragging) return;
 
 		setSelectedCells((prev: CellPosition[]) => {
@@ -72,47 +73,11 @@ const Board = () => {
 	}
 
 	function handlePointerUp() {
-		if (selectedCells.length === 0) {
+		if (selectedCells.length === 0 || isCompleted) {
 			setIsDragging(false);
 			return;
 		}
-
-		const word = selectedCells.reduce(
-			(word, c) => word + board[c.row][c.col].letter.char,
-			''
-		);
-		const score = calculateScore(selectedCells.map((c) => board[c.row][c.col]));
-		const energy = selectedCells.reduce(
-			(acc, c) => acc + (board[c.row][c.col].isCharged ? 1 : 0),
-			0
-		);
-
-		if (word.length < 3) {
-			toast('Word too short');
-			setSelectedCells([]);
-			setIsDragging(false);
-			return;
-		}
-
-		if (isValidWord(word)) {
-			selectedCells.forEach((c) => {
-				randomizeCell(c.row, c.col, true);
-			});
-			// changeScore(score);
-			changeEnergy(energy);
-			addWord({ word, score, energy });
-			incrementRound();
-			toast(
-				<div className='container-row gap-4'>
-					<span>{word}</span>
-					<span className='text-yellow-200'>+{score}</span>
-				</div>
-			);
-		} else {
-			toast('Invalid word');
-		}
-
-		setSelectedCells([]);
+		submitWord();
 		setIsDragging(false);
 	}
 
@@ -164,7 +129,6 @@ const Board = () => {
 		return () => window.removeEventListener('resize', handleResize);
 	}, [selectedCells]);
 
-	// render
 	return (
 		<div ref={containerRef} className='relative w-fit select-none'>
 			{/* SVG Lines */}
@@ -212,6 +176,7 @@ const Board = () => {
 									handlePointerEnter(Number(r), Number(c));
 								}
 							}}
+							className='rounded-lg'
 						>
 							<Cell
 								row={row}

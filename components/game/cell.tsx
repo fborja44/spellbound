@@ -5,6 +5,7 @@ import { Letter } from '@/lib/validators/game-state';
 import type { Cell } from '@/lib/validators/game-state';
 import useGameStore from '@/store/game-store';
 import { AnimatePresence, motion } from 'motion/react';
+import useGame from '@/hooks/useGame';
 
 interface CellProps {
 	letter: Letter;
@@ -18,6 +19,7 @@ const MotionButton = motion(Button);
 
 const Cell = ({ letter, isCharged, bonus, row, col }: CellProps) => {
 	const selectedCells = useGameStore((state) => state.selectedCells);
+	const isCompleted = useGameStore((state) => state.isCompleted);
 
 	const isSelected = selectedCells.some((c) => c.row === row && c.col === col);
 
@@ -33,6 +35,7 @@ const Cell = ({ letter, isCharged, bonus, row, col }: CellProps) => {
 				transition={{
 					duration: 0.5,
 				}}
+				disabled={isCompleted}
 			>
 				<p>{letter.char}</p>
 				<small className='absolute bottom-0 right-1 text-base font-medium tracking-tighter leading-tight'>

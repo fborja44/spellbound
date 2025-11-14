@@ -6,6 +6,8 @@ import { Label } from '../ui/label';
 import { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import useGameStore from '@/store/game-store';
+import { Plus } from 'lucide-react';
+import { MAX_ROUNDS } from '@/constants/game';
 
 const NewGameButton = () => {
 	const [maxRounds, setMaxRounds] = useState(5);
@@ -23,6 +25,7 @@ const NewGameButton = () => {
 			<PopoverTrigger asChild>
 				<Button variant='outline' size='sm'>
 					<span>New Game</span>
+					<Plus />
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent
@@ -48,7 +51,7 @@ const NewGameButton = () => {
 								type='number'
 								value={maxRounds}
 								min={1}
-								max={12}
+								max={MAX_ROUNDS}
 								className='col-span-2 h-8'
 								autoFocus={false}
 								onChange={(ev) => {
@@ -59,8 +62,8 @@ const NewGameButton = () => {
 									if (!isNaN(numValue) && Number.isFinite(numValue)) {
 										if (numValue < 1) {
 											setMaxRounds(1);
-										} else if (numValue > 12) {
-											setMaxRounds(12);
+										} else if (numValue > MAX_ROUNDS) {
+											setMaxRounds(MAX_ROUNDS);
 										} else {
 											setMaxRounds(numValue);
 										}
