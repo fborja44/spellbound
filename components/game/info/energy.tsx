@@ -9,9 +9,9 @@ const EnergyBar = () => {
 	const energy = useGameStore((store) => store.energy);
 
 	return (
-		<div className='container-col gap-1.5 flex-1 w-full h-full'>
+		<div className='flex flex-col-reverse gap-1.5 flex-1 w-full h-full'>
 			{[...Array(MAX_ENERGY)].map((_, index) => (
-				<EnergyCell key={index} isFilled={MAX_ENERGY - index <= energy} />
+				<EnergyCell key={index} isFilled={index < energy} index={index} />
 			))}
 		</div>
 	);
@@ -21,9 +21,10 @@ export default EnergyBar;
 
 interface EnergyCellProps {
 	isFilled?: boolean;
+	index: number;
 }
 
-const EnergyCell = ({ isFilled }: EnergyCellProps) => {
+const EnergyCell = ({ isFilled, index }: EnergyCellProps) => {
 	const bgClass = isFilled ? 'bg-purple-600' : 'bg-slate-900';
 
 	return (
