@@ -35,7 +35,7 @@ const Cell = ({ letter, isCharged, bonus, row, col, index }: CellProps) => {
 				exit={{ y: 50, opacity: 0 }}
 				transition={{
 					duration: 0.5,
-					delay: index * 0.01,
+					delay: col * 0.02 + row * 0.02,
 				}}
 				disabled={isCompleted}
 			>
