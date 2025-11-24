@@ -13,11 +13,12 @@ interface CellProps {
 	bonus?: Cell['bonus'];
 	row: number;
 	col: number;
+	index: number;
 }
 
 const MotionButton = motion(Button);
 
-const Cell = ({ letter, isCharged, bonus, row, col }: CellProps) => {
+const Cell = ({ letter, isCharged, bonus, row, col, index }: CellProps) => {
 	const selectedCells = useGameStore((state) => state.selectedCells);
 	const isCompleted = useGameStore((state) => state.isCompleted);
 
@@ -34,6 +35,7 @@ const Cell = ({ letter, isCharged, bonus, row, col }: CellProps) => {
 				exit={{ y: 50, opacity: 0 }}
 				transition={{
 					duration: 0.5,
+					delay: index * 0.01,
 				}}
 				disabled={isCompleted}
 			>

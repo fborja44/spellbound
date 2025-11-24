@@ -184,6 +184,7 @@ const Board = () => {
 								letter={cell.letter}
 								isCharged={cell.isCharged}
 								bonus={cell.bonus}
+								index={index}
 							/>
 						</div>
 					);
