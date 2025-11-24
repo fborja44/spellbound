@@ -51,6 +51,7 @@ export const GameStateSchema = z
 		wordHistory: z.array(WordSchema),
 		selectedCells: z.array(CellPositionSchema).max(5),
 		isCompleted: z.boolean().default(false),
+		isSwapping: z.boolean().default(false),
 	})
 	.strict();
 

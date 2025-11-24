@@ -25,7 +25,8 @@ export interface GameStore extends GameState {
 	) => void;
 	randomizeCell: (row: number, col: number, usePrev?: boolean) => void;
 	randomizeBoard: (usePrev?: boolean) => void;
-	setCompleted: (isCompleted: boolean) => void;
+	setIsCompleted: (isCompleted: boolean) => void;
+	setIsSwapping: (isSwapping: boolean) => void;
 }
 
 const initialState: GameState = {
@@ -43,6 +44,7 @@ const initialState: GameState = {
 	wordHistory: [],
 	selectedCells: [],
 	isCompleted: false,
+	isSwapping: false,
 };
 
 const useGameStore = create<GameStore>()((set) => ({
@@ -106,8 +108,11 @@ const useGameStore = create<GameStore>()((set) => ({
 			return { board: newBoard };
 		});
 	},
-	setCompleted: (isCompleted) => {
+	setIsCompleted: (isCompleted) => {
 		set(() => ({ isCompleted }));
+	},
+	setIsSwapping: (isSwapping) => {
+		set(() => ({ isSwapping }));
 	},
 }));
 

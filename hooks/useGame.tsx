@@ -12,7 +12,7 @@ const useGame = () => {
 	const changeEnergy = useGameStore((state) => state.changeEnergy);
 	const incrementRound = useGameStore((state) => state.incrementRound);
 	const addWord = useGameStore((state) => state.addWord);
-	const setCompleted = useGameStore((state) => state.setCompleted);
+	const setIsCompleted = useGameStore((state) => state.setIsCompleted);
 
 	const submitWord = () => {
 		const word = selectedCells.reduce(
@@ -49,7 +49,7 @@ const useGame = () => {
 			if (round === maxRounds) {
 				// If last round, then set completed
 				console.log('completed');
-				setCompleted(true);
+				setIsCompleted(true);
 			} else {
 				// Otherwise, just increment
 				incrementRound();
