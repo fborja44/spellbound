@@ -3,6 +3,7 @@ export const GRID_WIDTH = 5;
 
 export const MAX_ENERGY = 10;
 export const MAX_ROUNDS = 9;
+export const DEFAULT_ENERGY = 3;
 
 export const PROBABILITIES = {
 	ENERGY: 0.2,

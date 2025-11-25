@@ -35,7 +35,7 @@ const ActionButton = ({
 				}
 			}}
 			className={`relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-full transition-colors ${
-				isSelected ? 'text-yellow-200' : 'text-inherit'
+				isSelected ? 'text-purple-300' : 'text-inherit'
 			}`}
 			disabled={cost ? energy < cost : false}
 		>

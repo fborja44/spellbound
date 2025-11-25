@@ -20,6 +20,8 @@ const buttonVariants = cva(
 					'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
 				cell: 'bg-background border-foreground hover:bg-slate-900',
 				'cell-selected': 'bg-foreground border-sky-500 text-background',
+				'cell-swapping':
+					'bg-background border-yellow-200 text-yellow-200 hover:bg-slate-900',
 				link: 'text-primary underline-offset-4 hover:underline',
 			},
 			size: {

@@ -7,7 +7,7 @@ import {
 } from '@/lib/validators/game-state';
 import { create } from 'zustand';
 import { pickRandomLetter, randomizeBoard } from '@/lib/utils';
-import { MAX_ENERGY, PROBABILITIES } from '@/constants/game';
+import { DEFAULT_ENERGY, MAX_ENERGY, PROBABILITIES } from '@/constants/game';
 
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
@@ -33,7 +33,7 @@ const initialState: GameState = {
 	score: 0,
 	round: 1,
 	maxRounds: 5,
-	energy: 2,
+	energy: DEFAULT_ENERGY,
 	board: new Array(5).fill(null).map(() =>
 		new Array(5).fill({
 			letter: LETTERS['?'],

@@ -10,7 +10,7 @@ const GameFooter = () => {
 		<AnimatePresence mode='wait'>
 			{isSwapping && (
 				<motion.small
-					className='text-yellow-200 text-base font-bold italic'
+					className='text-base font-bold italic'
 					initial={{ opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					exit={{ y: 5, opacity: 0 }}

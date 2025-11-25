@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 
 const Header = () => {
 	return (
-		<header className='container-row justify-between h-16 px-4'>
+		<header className='container-row justify-between h-16 px-4 w-full'>
 			<Link href='/'>
 				<h1 className='container-row gap-2 font-bold text-xl hover:text-yellow-200 transtion-colors duration-200'>
 					<Sparkles />

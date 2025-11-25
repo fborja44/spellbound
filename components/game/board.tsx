@@ -176,11 +176,11 @@ const Board = () => {
 									touch.clientY
 								) as HTMLElement;
 								if (target?.id?.startsWith('cell-')) {
-									const [_, r, c] = target.id.split('-');
+									const [, r, c] = target.id.split('-');
 									handlePointerEnter(Number(r), Number(c));
 								}
 							}}
-							className='rounded-lg'
+							className='rounded-lg hover:cursor-pointer'
 						>
 							<Cell
 								row={row}

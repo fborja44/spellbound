@@ -17,28 +17,28 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-			<body
-				className={`${geistSans.variable} antialiased max-w-[1500px] mx-auto`}
-			>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='dark'
-					enableSystem
-					disableTransitionOnChange
-				>
-					<Header />
-					{children}
-					<Toaster
-						position={'top-center'}
-						toastOptions={{
-							classNames: {
-								toast: 'container-center border-4 px-8!',
-								title: 'text-2xl uppercase text-center font-extrabold!',
-							},
-							duration: 3 * 1000,
-						}}
-					/>
-				</ThemeProvider>
+			<body className={`${geistSans.variable} antialiased mx-auto`}>
+				<div className='max-w-[1500px] mx-auto'>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='dark'
+						enableSystem
+						disableTransitionOnChange
+					>
+						<Header />
+						{children}
+						<Toaster
+							position={'top-center'}
+							toastOptions={{
+								classNames: {
+									toast: 'container-center border-4 px-8!',
+									title: 'text-2xl uppercase text-center font-extrabold!',
+								},
+								duration: 3 * 1000,
+							}}
+						/>
+					</ThemeProvider>
+				</div>
 			</body>
 		</html>
 	);
