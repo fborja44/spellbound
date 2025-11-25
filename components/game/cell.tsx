@@ -24,6 +24,7 @@ const Cell = ({ letter, isCharged, bonus, row, col, index }: CellProps) => {
 	return (
 		<AnimatePresence mode='wait'>
 			<SwapDialog
+				key={`${row}-${col}-${letter.char}`}
 				prevCell={{
 					letter,
 					isCharged: !!isCharged,
@@ -33,7 +34,6 @@ const Cell = ({ letter, isCharged, bonus, row, col, index }: CellProps) => {
 				col={col}
 			>
 				<Tile
-					key={`${row}-${col}-${letter.char}`}
 					letter={letter}
 					isCharged={isCharged}
 					bonus={bonus}
@@ -44,8 +44,8 @@ const Cell = ({ letter, isCharged, bonus, row, col, index }: CellProps) => {
 					animate={{ y: 0, opacity: 1 }}
 					exit={{ y: 50, opacity: 0 }}
 					transition={{
-						duration: 0.5,
-						delay: col * 0.04 + row * 0.04,
+						duration: 0.75,
+						delay: col * 0.055 + row * 0.055,
 					}}
 					disabled={isCompleted || !isSwapping}
 				/>
