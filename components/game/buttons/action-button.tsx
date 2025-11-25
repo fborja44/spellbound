@@ -8,14 +8,18 @@ interface ActionButtonProps {
 	onClick?: () => void;
 	icon: ElementType;
 	cost?: number;
+	spend?: boolean;
 	children: React.ReactNode;
+	isSelected?: boolean;
 }
 
 const ActionButton = ({
 	onClick,
 	icon: Icon,
 	cost,
+	spend,
 	children,
+	isSelected,
 }: ActionButtonProps) => {
 	const energy = useGameStore((store) => store.energy);
 	const changeEnergy = useGameStore((store) => store.changeEnergy);
@@ -26,9 +30,13 @@ const ActionButton = ({
 				if (onClick) {
 					onClick();
 				}
-				changeEnergy(-(cost ?? 0));
+				if (spend) {
+					changeEnergy(-(cost ?? 0));
+				}
 			}}
-			className='relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-full'
+			className={`relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-full transition-colors ${
+				isSelected ? 'text-yellow-200' : 'text-inherit'
+			}`}
 			disabled={cost ? energy < cost : false}
 		>
 			<Icon className='size-12 stroke-3' />

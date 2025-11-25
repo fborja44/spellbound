@@ -12,6 +12,7 @@ const Board = () => {
 	const selectedCells = useGameStore((state) => state.selectedCells);
 	const setSelectedCells = useGameStore((state) => state.setSelectedCells);
 	const isCompleted = useGameStore((state) => state.isCompleted);
+	const isSwapping = useGameStore((state) => state.isSwapping);
 
 	const { submitWord } = useGame();
 
@@ -39,8 +40,11 @@ const Board = () => {
 	function handlePointerDown(row: number, col: number) {
 		if (isCompleted) return;
 
-		setIsDragging(true);
-		setSelectedCells([{ row, col }]);
+		if (isSwapping) {
+		} else {
+			setIsDragging(true);
+			setSelectedCells([{ row, col }]);
+		}
 	}
 
 	function handlePointerEnter(row: number, col: number) {

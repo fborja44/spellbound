@@ -5,14 +5,21 @@ import ActionButton from './action-button';
 import useGameStore from '@/store/game-store';
 
 const SwapButton = () => {
-	const isSwapping = useGameStore((state) => state.setIsSwapping);
+	const isSwapping = useGameStore((state) => state.isSwapping);
 	const setIsSwapping = useGameStore((state) => state.setIsSwapping);
+
 	const handleSwap = () => {
-		setIsSwapping(!isSwapping); // ?
+		setIsSwapping(!isSwapping);
 	};
 
 	return (
-		<ActionButton onClick={handleSwap} icon={Shuffle} cost={3}>
+		<ActionButton
+			onClick={handleSwap}
+			icon={Shuffle}
+			cost={3}
+			spend={false}
+			isSelected={isSwapping}
+		>
 			<span>Swap</span>
 		</ActionButton>
 	);

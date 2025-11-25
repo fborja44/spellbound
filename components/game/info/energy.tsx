@@ -24,7 +24,7 @@ interface EnergyCellProps {
 	index: number;
 }
 
-const EnergyCell = ({ isFilled, index }: EnergyCellProps) => {
+const EnergyCell = ({ isFilled }: EnergyCellProps) => {
 	const bgClass = isFilled ? 'bg-purple-600' : 'bg-slate-900';
 
 	return (
