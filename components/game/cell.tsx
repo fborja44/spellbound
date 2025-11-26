@@ -6,9 +6,9 @@ import SwapDialog from '../dialogs/SwapDialog';
 import Tile from './tile';
 
 export interface CellControls {
-	handleMouseDown: () => void;
-	handleMouseEnter: () => void;
-	handleTouchMove: (e: React.TouchEvent<HTMLButtonElement>) => void;
+	handleMouseDown?: () => void;
+	handleMouseEnter?: () => void;
+	handleTouchMove?: (e: React.TouchEvent<HTMLButtonElement>) => void;
 }
 
 interface CellProps extends CellControls {
