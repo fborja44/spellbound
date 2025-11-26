@@ -30,14 +30,14 @@ const Board = () => {
 	 * @param b The second cell position.
 	 * @returns True if the cells are neighbors, false otherwise.
 	 */
-	function isNeighbor(a: CellPosition, b: CellPosition) {
+	const isNeighbor = (a: CellPosition, b: CellPosition) => {
 		const dr = Math.abs(a.row - b.row);
 		const dc = Math.abs(a.col - b.col);
 		return dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0);
-	}
+	};
 
 	// pointer handlers
-	function handlePointerDown(row: number, col: number) {
+	const handlePointerDown = (row: number, col: number) => {
 		if (isCompleted) return;
 
 		if (isSwapping) {
@@ -45,9 +45,9 @@ const Board = () => {
 			setIsDragging(true);
 			setSelectedCells([{ row, col }]);
 		}
-	}
+	};
 
-	function handlePointerEnter(row: number, col: number) {
+	const handlePointerEnter = (row: number, col: number) => {
 		if (isCompleted) return;
 
 		if (!isDragging) return;
@@ -74,16 +74,28 @@ const Board = () => {
 
 			return prev;
 		});
-	}
+	};
 
-	function handlePointerUp() {
+	const handlePointerUp = () => {
 		if (selectedCells.length === 0 || isCompleted) {
 			setIsDragging(false);
 			return;
 		}
 		submitWord();
 		setIsDragging(false);
-	}
+	};
+
+	const handleTouchMove = (e: React.TouchEvent<HTMLButtonElement>) => {
+		const touch = e.touches[0];
+		const target = document.elementFromPoint(
+			touch.clientX,
+			touch.clientY
+		) as HTMLElement;
+		if (target?.id?.startsWith('cell-')) {
+			const [, r, c] = target.id.split('-');
+			handlePointerEnter(Number(r), Number(c));
+		}
+	};
 
 	useEffect(() => {
 		window.addEventListener('mouseup', handlePointerUp);
@@ -163,34 +175,19 @@ const Board = () => {
 					const col = index % 5;
 
 					return (
-						<div
-							key={index}
+						<Cell
 							id={`cell-${row}-${col}`}
-							onMouseDown={() => handlePointerDown(row, col)}
-							onMouseEnter={() => handlePointerEnter(row, col)}
-							onTouchStart={() => handlePointerDown(row, col)}
-							onTouchMove={(e) => {
-								const touch = e.touches[0];
-								const target = document.elementFromPoint(
-									touch.clientX,
-									touch.clientY
-								) as HTMLElement;
-								if (target?.id?.startsWith('cell-')) {
-									const [, r, c] = target.id.split('-');
-									handlePointerEnter(Number(r), Number(c));
-								}
-							}}
-							className='rounded-lg hover:cursor-pointer'
-						>
-							<Cell
-								row={row}
-								col={col}
-								letter={cell.letter}
-								isCharged={cell.isCharged}
-								bonus={cell.bonus}
-								index={index}
-							/>
-						</div>
+							key={index}
+							row={row}
+							col={col}
+							letter={cell.letter}
+							isCharged={cell.isCharged}
+							bonus={cell.bonus}
+							index={index}
+							handleMouseDown={() => handlePointerDown(row, col)}
+							handleMouseEnter={() => handlePointerEnter(row, col)}
+							handleTouchMove={handleTouchMove}
+						/>
 					);
 				})}
 			</section>

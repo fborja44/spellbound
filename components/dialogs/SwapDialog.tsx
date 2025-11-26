@@ -29,6 +29,7 @@ const SwapDialog = ({ prevCell, row, col, children }: SwapDialogProps) => {
 
 	const setCell = useGameStore((state) => state.setCell);
 	const changeEnergy = useGameStore((state) => state.changeEnergy);
+	const isSwapping = useGameStore((state) => state.isSwapping);
 	const setIsSwapping = useGameStore((state) => state.setIsSwapping);
 
 	const handleSwap = (newLetter: Letter) => {
@@ -45,7 +46,13 @@ const SwapDialog = ({ prevCell, row, col, children }: SwapDialogProps) => {
 
 	return (
 		<Dialog open={isOpen}>
-			<DialogTrigger asChild onClick={() => setIsOpen(true)}>
+			<DialogTrigger
+				asChild
+				onClick={() => {
+					if (!isSwapping) return;
+					setIsOpen(true);
+				}}
+			>
 				{children}
 			</DialogTrigger>
 			<DialogContent
