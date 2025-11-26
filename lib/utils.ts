@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { LETTERS } from '@/constants/letters';
 import words from '@/data/words_dictionary.json';
-import { Board, Cell, Letter } from './validators/game-state';
+import { Board, Cell, CellPosition, Letter } from './validators/game-state';
 import { PROBABILITIES } from '@/constants/game';
 
 export function cn(...inputs: ClassValue[]) {
@@ -68,14 +68,51 @@ export function isValidWord(word: string) {
  * @returns The total score of the word.
  */
 export function calculateScore(word: Cell[]) {
-	return word.reduce((sum, cell) => sum + cell.letter.score, 0);
+	return word.reduce(
+		(sum, cell) => sum + cell.letter.score * (cell.bonus === 'DL' ? 2 : 1),
+		0
+	);
 }
 
 export function randomizeBoard(board: Board, usePrev?: boolean) {
-	return board.map((row) =>
-		row.map((letter) => ({
+	return board.map((row, r) =>
+		row.map((letter, c) => ({
 			letter: pickRandomLetter(usePrev ? letter.letter.char : undefined),
 			isCharged: Math.random() < PROBABILITIES.ENERGY,
+			bonus: board[r][c].bonus,
 		}))
 	);
+}
+
+/**
+ * Picks a random coordinate in the 5x5 grid.
+ * Excludes the specified cootdinate if provided.
+ * @param excludeCoords? - The coordinates to exclude
+ * @returns The selected row and column as a pair.
+ */
+export function randomizeBonusCoords(
+	excludeCoords?: CellPosition
+): CellPosition {
+	const options: Array<CellPosition> = [];
+	const { row: excludeRow, col: excludeCol } = excludeCoords ?? {};
+
+	for (let r = 0; r < 5; r++) {
+		for (let c = 0; c < 5; c++) {
+			const isExcluded =
+				excludeRow !== undefined &&
+				excludeCol !== undefined &&
+				r === excludeRow &&
+				c === excludeCol;
+
+			if (!isExcluded) {
+				options.push({
+					row: r,
+					col: c,
+				});
+			}
+		}
+	}
+
+	const choice = Math.floor(Math.random() * options.length);
+	return options[choice];
 }

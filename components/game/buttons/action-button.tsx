@@ -23,6 +23,7 @@ const ActionButton = ({
 }: ActionButtonProps) => {
 	const energy = useGameStore((store) => store.energy);
 	const changeEnergy = useGameStore((store) => store.changeEnergy);
+	const isCompleted = useGameStore((store) => store.isCompleted);
 
 	return (
 		<button
@@ -37,7 +38,7 @@ const ActionButton = ({
 			className={`relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-full transition-colors ${
 				isSelected ? 'text-purple-300' : 'text-inherit'
 			}`}
-			disabled={cost ? energy < cost : false}
+			disabled={(cost ? energy < cost : false) || isCompleted}
 		>
 			<Icon className='size-12 stroke-3' />
 			<span>{children}</span>

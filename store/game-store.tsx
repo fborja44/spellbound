@@ -1,5 +1,6 @@
 import { LETTERS } from '@/constants/letters';
 import {
+	Bonus,
 	Cell,
 	CellPosition,
 	GameState,
@@ -20,6 +21,7 @@ export interface GameStore extends GameState {
 	setWordHistory: (wordHistory: Word[]) => void;
 	addWord: (word: Word) => void;
 	setCell: (row: number, col: number, cell: Cell) => void;
+	setCellBonus: (row: number, col: number, bonus: Bonus | null) => void;
 	setSelectedCells: (
 		updater: CellPosition[] | ((prev: CellPosition[]) => CellPosition[])
 	) => void;
@@ -85,6 +87,16 @@ const useGameStore = create<GameStore>()((set) => ({
 			newBoard[row][col] = cell;
 			return { board: newBoard };
 		}),
+	setCellBonus: (row, col, bonus) =>
+		set((state) => {
+			const newBoard = state.board.map((r) => r.slice());
+			const cell = newBoard[row][col];
+			newBoard[row][col] = {
+				...cell,
+				bonus,
+			};
+			return { board: newBoard };
+		}),
 	setSelectedCells: (updater) =>
 		set((state) => ({
 			selectedCells:
@@ -98,6 +110,7 @@ const useGameStore = create<GameStore>()((set) => ({
 					usePrev ? newBoard[row][col].letter.char : undefined
 				),
 				isCharged: Math.random() < PROBABILITIES.ENERGY,
+				bonus: newBoard[row][col].bonus,
 			};
 			return { board: newBoard };
 		});

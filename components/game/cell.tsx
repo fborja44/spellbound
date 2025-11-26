@@ -1,4 +1,3 @@
-import { Letter } from '@/lib/validators/game-state';
 import type { Cell } from '@/lib/validators/game-state';
 import useGameStore from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
@@ -13,9 +12,7 @@ export interface CellControls {
 
 interface CellProps extends CellControls {
 	id: string;
-	letter: Letter;
-	isCharged?: boolean;
-	bonus?: Cell['bonus'];
+	cell: Cell;
 	row: number;
 	col: number;
 	index: number;
@@ -23,11 +20,9 @@ interface CellProps extends CellControls {
 
 const Cell = ({
 	id,
-	letter,
-	isCharged,
-	bonus,
 	row,
 	col,
+	cell,
 	handleMouseDown,
 	handleMouseEnter,
 	handleTouchMove,
@@ -37,6 +32,7 @@ const Cell = ({
 	const isSwapping = useGameStore((state) => state.isSwapping);
 
 	const isSelected = selectedCells.some((c) => c.row === row && c.col === col);
+	const { letter, isCharged, bonus } = cell;
 
 	return (
 		<AnimatePresence mode='wait'>
@@ -50,27 +46,33 @@ const Cell = ({
 				row={row}
 				col={col}
 			>
-				<Tile
-					id={id}
-					letter={letter}
-					isCharged={isCharged}
-					bonus={bonus}
-					variant={
-						isSwapping ? 'cell-swapping' : isSelected ? 'cell-selected' : 'cell'
-					}
-					initial={{ opacity: 0 }}
-					animate={{ y: 0, opacity: 1 }}
-					exit={{ y: 50, opacity: 0 }}
-					transition={{
-						duration: 0.75,
-						delay: col * 0.055 + row * 0.055,
-					}}
-					disabled={isCompleted}
-					className='hover:cursor-pointer'
-					handleMouseDown={handleMouseDown}
-					handleMouseEnter={handleMouseEnter}
-					handleTouchMove={handleTouchMove}
-				/>
+				<div className='size-fit'>
+					<Tile
+						id={id}
+						letter={letter}
+						isCharged={isCharged}
+						bonus={bonus}
+						variant={
+							isSwapping
+								? 'cell-swapping'
+								: isSelected
+								? 'cell-selected'
+								: 'cell'
+						}
+						initial={{ opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						exit={{ y: 50, opacity: 0 }}
+						transition={{
+							duration: 0.75,
+							delay: col * 0.055 + row * 0.055,
+						}}
+						disabled={isCompleted}
+						className='hover:cursor-pointer'
+						handleMouseDown={handleMouseDown}
+						handleMouseEnter={handleMouseEnter}
+						handleTouchMove={handleTouchMove}
+					/>
+				</div>
 			</SwapDialog>
 		</AnimatePresence>
 	);

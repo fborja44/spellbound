@@ -10,7 +10,7 @@ const ActionBar = () => {
 	return (
 		<div className='container-col gap-3 min-w-18'>
 			<div
-				className={`flex flex-row items-end game-header-h text-2xl font-geist-mono font-black ${geistMono.className}`}
+				className={`flex flex-row items-end game-header-h text-2xl font-black ${geistMono.className}`}
 			>
 				<Rounds />
 			</div>

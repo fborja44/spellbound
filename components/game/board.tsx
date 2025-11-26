@@ -14,7 +14,7 @@ const Board = () => {
 	const isCompleted = useGameStore((state) => state.isCompleted);
 	const isSwapping = useGameStore((state) => state.isSwapping);
 
-	const { submitWord } = useGame();
+	const { submitWord, setDoubleLetterBonus } = useGame();
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -22,6 +22,7 @@ const Board = () => {
 
 	useEffect(() => {
 		randomizeBoard();
+		setDoubleLetterBonus();
 	}, [randomizeBoard]);
 
 	/**
@@ -180,9 +181,7 @@ const Board = () => {
 							key={index}
 							row={row}
 							col={col}
-							letter={cell.letter}
-							isCharged={cell.isCharged}
-							bonus={cell.bonus}
+							cell={cell}
 							index={index}
 							handleMouseDown={() => handlePointerDown(row, col)}
 							handleMouseEnter={() => handlePointerEnter(row, col)}

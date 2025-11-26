@@ -1,4 +1,5 @@
-import { calculateScore, isValidWord } from '@/lib/utils';
+import { calculateScore, isValidWord, randomizeBonusCoords } from '@/lib/utils';
+import { Bonus, CellPosition } from '@/lib/validators/game-state';
 import useGameStore from '@/store/game-store';
 import { toast } from 'sonner';
 
@@ -6,6 +7,7 @@ const useGame = () => {
 	const round = useGameStore((state) => state.round);
 	const maxRounds = useGameStore((state) => state.maxRounds);
 	const board = useGameStore((state) => state.board);
+	const setCellBonus = useGameStore((state) => state.setCellBonus);
 	const selectedCells = useGameStore((state) => state.selectedCells);
 	const setSelectedCells = useGameStore((state) => state.setSelectedCells);
 	const randomizeCell = useGameStore((state) => state.randomizeCell);
@@ -14,11 +16,12 @@ const useGame = () => {
 	const addWord = useGameStore((state) => state.addWord);
 	const setIsCompleted = useGameStore((state) => state.setIsCompleted);
 
+	/**
+	 * Handles the submission of a word.
+	 */
 	const submitWord = () => {
-		const word = selectedCells.reduce(
-			(word, c) => word + board[c.row][c.col].letter.char,
-			''
-		);
+		const tiles = selectedCells.map(({ row, col }) => board[row][col]);
+		const word = tiles.reduce((word, tile) => word + tile.letter.char, '');
 		const score = calculateScore(selectedCells.map((c) => board[c.row][c.col]));
 		const energy = selectedCells.reduce(
 			(acc, c) => acc + (board[c.row][c.col].isCharged ? 1 : 0),
@@ -37,6 +40,12 @@ const useGame = () => {
 			selectedCells.forEach((c) => {
 				randomizeCell(c.row, c.col, true);
 			});
+
+			// If word contains a bonus, move it
+			if (tiles.some((tile) => tile.bonus === 'DL')) {
+				setDoubleLetterBonus();
+			}
+
 			changeEnergy(energy);
 			addWord({ word, score, energy });
 			toast(
@@ -61,7 +70,43 @@ const useGame = () => {
 		setSelectedCells([]);
 	};
 
-	return { submitWord };
+	/**
+	 * Finds the coordinates of a bonus tile, if it exists.
+	 * @param bonus The bonus to look for.
+	 * @returns A pair of the coordinates if found, otherwise null.
+	 */
+	const getBonusCoordinates = (bonus: Bonus): CellPosition | null => {
+		for (let r = 0; r < board.length; r++) {
+			for (let c = 0; c < board[r].length; c++) {
+				if (board[r][c].bonus === bonus) {
+					return {
+						row: r,
+						col: c,
+					};
+				}
+			}
+		}
+		return null;
+	};
+
+	const setDoubleLetterBonus = () => {
+		// Look for existing double word bonus and double letter bonus
+		const otherCoords = getBonusCoordinates('2X');
+		const prevCoords = getBonusCoordinates('DL');
+
+		// Get new bonus coords
+		const { row, col } = randomizeBonusCoords(otherCoords ?? undefined);
+
+		// Remove prev bonus
+		if (prevCoords) {
+			setCellBonus(prevCoords.row, prevCoords.col, null);
+		}
+
+		// Set bonus
+		setCellBonus(row, col, 'DL');
+	};
+
+	return { submitWord, setDoubleLetterBonus };
 };
 
 export default useGame;
