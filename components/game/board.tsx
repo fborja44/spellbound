@@ -7,6 +7,7 @@ import { CellPosition } from '@/lib/validators/game-state';
 import useGame from '@/hooks/useGame';
 
 const Board = () => {
+	const round = useGameStore((state) => state.round);
 	const board = useGameStore((state) => state.board);
 	const randomizeBoard = useGameStore((state) => state.randomizeBoard);
 	const selectedCells = useGameStore((state) => state.selectedCells);
@@ -14,7 +15,7 @@ const Board = () => {
 	const isCompleted = useGameStore((state) => state.isCompleted);
 	const isSwapping = useGameStore((state) => state.isSwapping);
 
-	const { submitWord, setDoubleLetterBonus } = useGame();
+	const { submitWord, setDoubleLetterBonus, setDoubleWordBonus } = useGame();
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -24,6 +25,12 @@ const Board = () => {
 		randomizeBoard();
 		setDoubleLetterBonus();
 	}, [randomizeBoard]);
+
+	useEffect(() => {
+		if (round === 3) {
+			setDoubleWordBonus();
+		}
+	}, [round]);
 
 	/**
 	 * Check if two cells are neighbors (horizontally, vertically, or diagonally adjacent).

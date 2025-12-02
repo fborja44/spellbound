@@ -68,10 +68,15 @@ export function isValidWord(word: string) {
  * @returns The total score of the word.
  */
 export function calculateScore(word: Cell[]) {
-	return word.reduce(
-		(sum, cell) => sum + cell.letter.score * (cell.bonus === 'DL' ? 2 : 1),
-		0
-	);
+	let hasDoubleWord = false;
+
+	const baseScore = word.reduce((sum, cell) => {
+		if (cell.bonus === '2X') hasDoubleWord = true;
+		const letterMultiplier = cell.bonus === 'DL' ? 2 : 1;
+		return sum + cell.letter.score * letterMultiplier;
+	}, 0);
+
+	return hasDoubleWord ? baseScore * 2 : baseScore;
 }
 
 export function randomizeBoard(board: Board, usePrev?: boolean) {

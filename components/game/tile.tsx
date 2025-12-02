@@ -18,6 +18,7 @@ interface TileProps extends MotionProps, CellControls {
 }
 
 const MotionButton = motion.create(Button);
+const MotionBadge = motion.create(Badge);
 
 const Tile = ({
 	id,
@@ -42,12 +43,12 @@ const Tile = ({
 				className
 			)}
 			disabled={disabled}
-			{...props}
 			onClick={onClick}
 			onMouseDown={handleMouseDown}
 			onMouseEnter={handleMouseEnter}
 			onTouchStart={handleMouseDown}
 			onTouchMove={handleTouchMove}
+			{...props}
 		>
 			<p>{letter.char}</p>
 			<small
@@ -62,13 +63,19 @@ const Tile = ({
 					<Zap className='size-3.5 fill-violet-500' />
 				</small>
 			)}
-			{bonus === 'DL' && (
-				<Badge
-					variant='double'
+			{bonus && (
+				<MotionBadge
+					variant={bonus}
 					className='absolute -top-2.5 -left-3 size-7 rounded-full font-black uppercase'
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					transition={{
+						duration: 0.75,
+					}}
 				>
-					DL
-				</Badge>
+					{bonus}
+				</MotionBadge>
 			)}
 		</MotionButton>
 	);

@@ -45,6 +45,9 @@ const useGame = () => {
 			if (tiles.some((tile) => tile.bonus === 'DL')) {
 				setDoubleLetterBonus();
 			}
+			if (tiles.some((tile) => tile.bonus === '2X')) {
+				setDoubleWordBonus();
+			}
 
 			changeEnergy(energy);
 			addWord({ word, score, energy });
@@ -103,10 +106,29 @@ const useGame = () => {
 		}
 
 		// Set bonus
+		console.log(`DL - ${row}/${col}`);
 		setCellBonus(row, col, 'DL');
 	};
 
-	return { submitWord, setDoubleLetterBonus };
+	const setDoubleWordBonus = () => {
+		// Look for existing double word bonus and double letter bonus
+		const otherCoords = getBonusCoordinates('DL');
+		const prevCoords = getBonusCoordinates('2X');
+
+		// Get new bonus coords
+		const { row, col } = randomizeBonusCoords(otherCoords ?? undefined);
+
+		// Remove prev bonus
+		if (prevCoords) {
+			setCellBonus(prevCoords.row, prevCoords.col, null);
+		}
+
+		// Set bonus
+		console.log(`2X - ${row}/${col}`);
+		setCellBonus(row, col, '2X');
+	};
+
+	return { submitWord, setDoubleLetterBonus, setDoubleWordBonus };
 };
 
 export default useGame;
