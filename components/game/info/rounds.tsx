@@ -13,6 +13,7 @@ const Rounds = () => {
 				<AnimatePresence mode='wait'>
 					<motion.span
 						key={`round-${round}`}
+						initial={{ opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						exit={{ y: 50, opacity: 0 }}
 						transition={{
@@ -26,6 +27,7 @@ const Rounds = () => {
 				<AnimatePresence mode='wait'>
 					<motion.span
 						key={`max-${maxRounds}`}
+						initial={{ opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}
 						exit={{ y: 50, opacity: 0 }}
 						transition={{
