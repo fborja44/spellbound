@@ -1,5 +1,5 @@
 import { AnimatePresence, MotionProps } from 'motion/react';
-import FadeDiv from './FadeDiv';
+import FadeDiv from './fade-div';
 
 interface FadeProps extends MotionProps {
 	children?: React.ReactNode;

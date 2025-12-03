@@ -7,7 +7,7 @@ import { motion } from 'motion/react';
 import CountUp from 'react-countup';
 import { Separator } from '../ui/separator';
 import { SendHorizonal, Sparkles } from 'lucide-react';
-import FadeDiv from '../animate/FadeDiv';
+import FadeDiv from '../animate/fade-div';
 import { Button } from '../ui/button';
 import { hasBonus } from '@/lib/utils';
 

@@ -4,7 +4,7 @@ import useGameStore from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
 import Board from './board';
 import Results from './results';
-import FadeDiv from '../animate/FadeDiv';
+import FadeDiv from '../animate/fade-div';
 
 const Main = () => {
 	const isCompleted = useGameStore((state) => state.isCompleted);

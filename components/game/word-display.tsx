@@ -3,7 +3,7 @@
 import { calculateScore, hasBonus } from '@/lib/utils';
 import useGameStore from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
-import FadeDiv from '../animate/FadeDiv';
+import FadeDiv from '../animate/fade-div';
 
 const WordDisplay = () => {
 	const board = useGameStore((state) => state.board);
