@@ -106,7 +106,6 @@ const useGame = () => {
 		}
 
 		// Set bonus
-		console.log(`DL - ${row}/${col}`);
 		setCellBonus(row, col, 'DL');
 	};
 
@@ -124,11 +123,14 @@ const useGame = () => {
 		}
 
 		// Set bonus
-		console.log(`2X - ${row}/${col}`);
 		setCellBonus(row, col, '2X');
 	};
 
-	return { submitWord, setDoubleLetterBonus, setDoubleWordBonus };
+	return {
+		submitWord,
+		setDoubleLetterBonus,
+		setDoubleWordBonus,
+	};
 };
 
 export default useGame;

@@ -8,6 +8,7 @@ import useGame from '@/hooks/useGame';
 
 const Board = () => {
 	const round = useGameStore((state) => state.round);
+	const maxRounds = useGameStore((state) => state.maxRounds);
 	const board = useGameStore((state) => state.board);
 	const randomizeBoard = useGameStore((state) => state.randomizeBoard);
 	const selectedCells = useGameStore((state) => state.selectedCells);
@@ -23,14 +24,17 @@ const Board = () => {
 
 	useEffect(() => {
 		randomizeBoard();
-		setDoubleLetterBonus();
 	}, [randomizeBoard]);
 
 	useEffect(() => {
-		if (round === 3) {
+		if (isCompleted) return;
+		if (round === 1) {
+			setDoubleLetterBonus();
+		}
+		if (round === Math.ceil(maxRounds / 2)) {
 			setDoubleWordBonus();
 		}
-	}, [round]);
+	}, [maxRounds, round, isCompleted]);
 
 	/**
 	 * Check if two cells are neighbors (horizontally, vertically, or diagonally adjacent).
@@ -175,7 +179,7 @@ const Board = () => {
 
 			{/* Game board */}
 			<section
-				className='grid grid-cols-5 grid-rows-5 gap-3.5 relative z-10'
+				className='grid grid-cols-5 grid-rows-5 gap-3.5 relative z-10 size-board'
 				onMouseLeave={handlePointerUp}
 			>
 				{board.flat().map((cell, index) => {

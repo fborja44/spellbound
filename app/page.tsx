@@ -1,7 +1,7 @@
 import ActionBar from '@/components/game/actionbar';
-import Board from '@/components/game/board';
 import GameFooter from '@/components/game/info/game-footer';
 import InfoBar from '@/components/game/infobar';
+import Main from '@/components/game/main';
 import WordDisplay from '@/components/game/word-display';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 				<ActionBar />
 				<div className='container-col gap-2.5'>
 					<WordDisplay />
-					<Board />
+					<Main />
 				</div>
 				<InfoBar />
 			</div>

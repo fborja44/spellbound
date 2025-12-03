@@ -79,12 +79,16 @@ export function calculateScore(word: Cell[]) {
 	return hasDoubleWord ? baseScore * 2 : baseScore;
 }
 
-export function randomizeBoard(board: Board, usePrev?: boolean) {
+export function randomizeBoard(
+	board: Board,
+	usePrev?: boolean,
+	saveBonus: boolean = true
+): Board {
 	return board.map((row, r) =>
 		row.map((letter, c) => ({
 			letter: pickRandomLetter(usePrev ? letter.letter.char : undefined),
 			isCharged: Math.random() < PROBABILITIES.ENERGY,
-			bonus: board[r][c].bonus,
+			bonus: saveBonus ? board[r][c].bonus : null,
 		}))
 	);
 }

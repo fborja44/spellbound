@@ -57,7 +57,7 @@ const useGameStore = create<GameStore>()((set) => ({
 		set(({ board }) => {
 			const newState = { ...initialState };
 			newState.maxRounds = maxRounds;
-			newState.board = randomizeBoard(board, true);
+			newState.board = randomizeBoard(board, true, false);
 			return newState;
 		}),
 	changeScore: (points) =>
