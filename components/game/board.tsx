@@ -28,7 +28,7 @@ const Board = () => {
 
 	useEffect(() => {
 		if (isCompleted) return;
-		if (round === 1) {
+		if (round === 2) {
 			setDoubleLetterBonus();
 		}
 		if (round === Math.ceil(maxRounds / 2)) {

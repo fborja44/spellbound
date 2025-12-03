@@ -48,7 +48,7 @@ export const GameStateSchema = z
 	.object({
 		score: z.number().min(0).default(0),
 		round: z.number().min(1).default(1),
-		maxRounds: z.number().min(1).default(5),
+		maxRounds: z.number().min(3).default(5),
 		energy: z.number().min(0).max(MAX_ENERGY),
 		board: BoardSchema,
 		wordHistory: z.array(WordSchema),

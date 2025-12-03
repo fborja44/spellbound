@@ -50,7 +50,7 @@ const NewGameButton = () => {
 								id='width'
 								type='number'
 								value={maxRounds}
-								min={1}
+								min={3}
 								max={MAX_ROUNDS}
 								className='col-span-2 h-8'
 								autoFocus={false}
@@ -60,8 +60,8 @@ const NewGameButton = () => {
 									const numValue = Number(value);
 
 									if (!isNaN(numValue) && Number.isFinite(numValue)) {
-										if (numValue < 1) {
-											setMaxRounds(1);
+										if (numValue < 3) {
+											setMaxRounds(3);
 										} else if (numValue > MAX_ROUNDS) {
 											setMaxRounds(MAX_ROUNDS);
 										} else {
