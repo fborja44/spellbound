@@ -11,6 +11,7 @@ import {
 	Word,
 } from './validators/game-state';
 import { PROBABILITIES } from '@/constants/game';
+import { random, randomInt } from './random';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -41,7 +42,7 @@ export function pickRandomLetter(prevChar?: string): Letter {
 	const adjustedTotal =
 		prevIndex >= 0 ? totalWeight - weights[prevIndex] : totalWeight;
 
-	const r = Math.random() * adjustedTotal;
+	const r = randomInt(adjustedTotal);
 
 	let lo = 0;
 	let hi = prefixSums.length - 1;
@@ -94,7 +95,7 @@ export function randomizeBoard(
 	return board.map((row, r) =>
 		row.map((letter, c) => ({
 			letter: pickRandomLetter(usePrev ? letter.letter.char : undefined),
-			isCharged: Math.random() < PROBABILITIES.ENERGY,
+			isCharged: random() < PROBABILITIES.ENERGY,
 			bonus: saveBonus ? board[r][c].bonus : null,
 		}))
 	);
@@ -129,7 +130,7 @@ export function randomizeBonusCoords(
 		}
 	}
 
-	const choice = Math.floor(Math.random() * options.length);
+	const choice = randomInt(options.length);
 	return options[choice];
 }
 

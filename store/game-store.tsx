@@ -9,9 +9,14 @@ import {
 import { create } from 'zustand';
 import { pickRandomLetter, randomizeBoard } from '@/lib/utils';
 import { DEFAULT_ENERGY, MAX_ENERGY, PROBABILITIES } from '@/constants/game';
+import { setSeed as applySeed, generateSeed, random } from '@/lib/random';
+
+const initialSeed = generateSeed();
 
 export interface GameStore extends GameState {
 	setState: (state: Partial<GameState>) => void;
+	setSeed: (seed: number | null) => void;
+	newSeed: () => number;
 	setScore: (score: number) => void;
 	startNewGame: (maxRounds: number) => void;
 	changeScore: (points: number) => void;
@@ -32,6 +37,7 @@ export interface GameStore extends GameState {
 }
 
 const initialState: GameState = {
+	seed: initialSeed,
 	score: 0,
 	round: 1,
 	maxRounds: 5,
@@ -49,17 +55,29 @@ const initialState: GameState = {
 	isSwapping: false,
 };
 
-const useGameStore = create<GameStore>()((set) => ({
+const useGameStore = create<GameStore>()((set, get) => ({
 	...initialState,
 	setState: (state) => set((prev) => ({ ...prev, ...state })),
 	setScore: (score) => set(() => ({ score })),
-	startNewGame: (maxRounds) =>
+	setSeed: (seed) => {
+		applySeed(seed ?? initialSeed);
+		set({ seed: seed ?? initialSeed });
+	},
+	newSeed: () => {
+		// Generate a 32-bit integer range seed
+		const seed = generateSeed();
+		get().setSeed(seed);
+		return seed;
+	},
+	startNewGame: (maxRounds) => {
 		set(({ board }) => {
 			const newState = { ...initialState };
 			newState.maxRounds = maxRounds;
 			newState.board = randomizeBoard(board, true, false);
 			return newState;
-		}),
+		});
+		get().newSeed();
+	},
 	changeScore: (points) =>
 		set((state) => ({
 			score: state.score + points,
@@ -109,7 +127,7 @@ const useGameStore = create<GameStore>()((set) => ({
 				letter: pickRandomLetter(
 					usePrev ? newBoard[row][col].letter.char : undefined
 				),
-				isCharged: Math.random() < PROBABILITIES.ENERGY,
+				isCharged: random() < PROBABILITIES.ENERGY,
 				bonus: newBoard[row][col].bonus,
 			};
 			return { board: newBoard };

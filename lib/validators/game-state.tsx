@@ -46,6 +46,7 @@ export type Board = z.infer<typeof BoardSchema>;
 
 export const GameStateSchema = z
 	.object({
+		seed: z.number().nullable().default(null),
 		score: z.number().min(0).default(0),
 		round: z.number().min(1).default(1),
 		maxRounds: z.number().min(3).default(5),
