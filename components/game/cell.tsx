@@ -1,7 +1,7 @@
 import type { Cell } from '@/lib/validators/game-state';
 import useGameStore from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
-import SwapDialog from '../dialogs/SwapDialog';
+import SwapDialog from '../dialogs/swap-dialog';
 import Tile from './tile';
 
 export interface CellControls {
