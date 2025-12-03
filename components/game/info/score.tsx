@@ -52,7 +52,7 @@ const Score = () => {
 								duration: 0.8,
 								ease: 'easeOut',
 							}}
-							className='absolute left-full ml-4 text-green-500 font-bold -z-10'
+							className='absolute left-full ml-4 text-green-400 font-bold -z-10'
 						>
 							+{pendingPoints}
 						</motion.div>

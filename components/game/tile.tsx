@@ -53,7 +53,7 @@ const Tile = ({
 			<p>{letter.char}</p>
 			<small
 				className={`absolute bottom-0 right-1 text-base font-bold tracking-tighter leading-tight ${
-					bonus === 'DL' ? 'text-green-500' : ''
+					bonus === 'DL' ? 'text-green-400' : ''
 				}`}
 			>
 				{letter.score * (bonus === 'DL' ? 2 : 1)}

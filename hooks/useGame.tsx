@@ -1,5 +1,10 @@
-import { calculateScore, isValidWord, randomizeBonusCoords } from '@/lib/utils';
-import { Bonus, CellPosition } from '@/lib/validators/game-state';
+import {
+	calculateScore,
+	hasBonus,
+	isValidWord,
+	randomizeBonusCoords,
+} from '@/lib/utils';
+import { Bonus, CellPosition, Word } from '@/lib/validators/game-state';
 import useGameStore from '@/store/game-store';
 import { toast } from 'sonner';
 
@@ -37,20 +42,22 @@ const useGame = () => {
 
 		// Check if valid word
 		if (isValidWord(word)) {
+			const newWord: Word = { word, score, energy, tiles };
+
 			selectedCells.forEach((c) => {
 				randomizeCell(c.row, c.col, true);
 			});
 
 			// If word contains a bonus, move it
-			if (tiles.some((tile) => tile.bonus === 'DL')) {
+			if (hasBonus(tiles, 'DL')) {
 				setDoubleLetterBonus();
 			}
-			if (tiles.some((tile) => tile.bonus === '2X')) {
+			if (hasBonus(tiles, '2X')) {
 				setDoubleWordBonus();
 			}
 
 			changeEnergy(energy);
-			addWord({ word, score, energy });
+			addWord(newWord);
 			toast(
 				<div className='container-row gap-4'>
 					<span>{word}</span>

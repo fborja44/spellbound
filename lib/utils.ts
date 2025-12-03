@@ -2,7 +2,14 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { LETTERS } from '@/constants/letters';
 import words from '@/data/words_dictionary.json';
-import { Board, Cell, CellPosition, Letter } from './validators/game-state';
+import {
+	Board,
+	Bonus,
+	Cell,
+	CellPosition,
+	Letter,
+	Word,
+} from './validators/game-state';
 import { PROBABILITIES } from '@/constants/game';
 
 export function cn(...inputs: ClassValue[]) {
@@ -124,4 +131,8 @@ export function randomizeBonusCoords(
 
 	const choice = Math.floor(Math.random() * options.length);
 	return options[choice];
+}
+
+export function hasBonus(tiles: Cell[], bonus: Bonus) {
+	return tiles.some((cell) => cell.bonus === bonus);
 }

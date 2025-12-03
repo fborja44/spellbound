@@ -9,6 +9,7 @@ import { Separator } from '../ui/separator';
 import { SendHorizonal, Sparkles } from 'lucide-react';
 import FadeDiv from '../animate/FadeDiv';
 import { Button } from '../ui/button';
+import { hasBonus } from '@/lib/utils';
 
 const BASE_DELAY = 0.5;
 
@@ -40,9 +41,9 @@ const Results = () => {
 					delay={scoreDelay}
 					className={`container-row justify-between font-extrabold w-full`}
 				>
-					<div className='container-row gap-2 text-slate-300'>
-						<Sparkles strokeWidth={2.5} className='size-7' />
-						<span className='text-3xl'>Total</span>
+					<div className='container-row gap-2'>
+						<Sparkles strokeWidth={2.5} className='size-7  text-purple-500' />
+						<span className='text-3xl text-purple-500'>Total</span>
 					</div>
 					<CountUp
 						className={`relative uppercase font-black text-4xl leading-5 ${geistMono.className}`}
@@ -86,7 +87,16 @@ const WordItem = ({ word, index }: WordItemProps) => {
 			}}
 			className='container-row justify-between font-extrabold'
 		>
-			<span>{word.word}</span>
+			<div className='container-row gap-2'>
+				<span className='text-slate-500'>{index + 1}.</span>
+				<span>{word.word}</span>
+				{hasBonus(word.tiles, 'DL') && (
+					<span className='text-green-400 text-xs font-bold'>DL</span>
+				)}
+				{hasBonus(word.tiles, '2X') && (
+					<span className='text-red-400 text-xs font-bold'>2X</span>
+				)}
+			</div>
 			<span className={`text-yellow-200 ${geistMono.className}`}>
 				+{word.score}
 			</span>

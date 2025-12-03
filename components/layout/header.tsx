@@ -16,9 +16,9 @@ const Header = () => {
 				{/* <Button variant='ghost' size='sm' disabled>
 					<span>Join Game</span>
 				</Button> */}
-				<Button size='icon-sm' variant='outline'>
+				{/* <Button size='icon-sm' variant='outline'>
 					<CircleQuestionMark />
-				</Button>
+				</Button> */}
 				<NewGameButton />
 				{/* <Avatar className='size-10 text-gray-400'>
 					<AvatarImage src='' />

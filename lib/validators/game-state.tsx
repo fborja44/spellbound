@@ -9,22 +9,23 @@ export const LetterSchema = z.object({
 
 export type Letter = z.infer<typeof LetterSchema>;
 
-export const WordSchema = z.object({
-	word: z.string().min(1),
-	score: z.number().int(),
-	energy: z.number().int().min(0),
-	// tiles: // TODO
-});
-
-export type Word = z.infer<typeof WordSchema>;
-
 export const CellSchema = z.object({
 	letter: LetterSchema,
 	isCharged: z.boolean().default(false),
 	bonus: z.enum(['DL', '2X']).nullable(),
 });
 export type Cell = z.infer<typeof CellSchema>;
+
 export type Bonus = Cell['bonus'];
+
+export const WordSchema = z.object({
+	word: z.string().min(1),
+	tiles: z.array(CellSchema).min(1),
+	score: z.number().int(),
+	energy: z.number().int().min(0),
+});
+
+export type Word = z.infer<typeof WordSchema>;
 
 export const CellPositionSchema = z.object({
 	row: z
