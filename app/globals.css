@@ -45,6 +45,8 @@
 	--spacing-board: 415px;
 	--spacing-game-header: 60px;
 	--spacing-game: calc(var(--spacing-board) + var(--spacing-game-header));
+
+	--text-xxs: 0.625rem;
 }
 
 :root {

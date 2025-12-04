@@ -28,7 +28,7 @@ const Results = () => {
 	return (
 		<div className='container-col gap-2 py-2 w-full uppercase'>
 			<h3 className='font-bold text-slate-400'>Submitted Words</h3>
-			<div className='container-col w-4/5 gap-7'>
+			<div className='container-col w-4/5 gap-6'>
 				<ol className='flex flex-col w-full gap-3 text-lg'>
 					{wordHistory.map((word, index) => (
 						<WordItem key={`result-word-${index}`} word={word} index={index} />
@@ -89,13 +89,19 @@ const WordItem = ({ word, index }: WordItemProps) => {
 		>
 			<div className='container-row gap-2'>
 				<span className='text-slate-500'>{index + 1}.</span>
-				<span>{word.word}</span>
-				{hasBonus(word.tiles, 'DL') && (
-					<span className='text-green-400 text-xs font-bold'>DL</span>
-				)}
-				{hasBonus(word.tiles, '2X') && (
-					<span className='text-red-400 text-xs font-bold'>2X</span>
-				)}
+				<span className='tracking-widest'>{word.word}</span>
+				<div className='container-row gap-2 ml-1'>
+					{hasBonus(word.tiles, 'DL') && (
+						<span className='bg-green-400 text-background text-xxs font-black px-[5px] rounded-full leading-normal'>
+							DL
+						</span>
+					)}
+					{hasBonus(word.tiles, '2X') && (
+						<span className='bg-red-400 text-background text-xxs font-black px-[5px] rounded-full leading-normal'>
+							2X
+						</span>
+					)}
+				</div>
 			</div>
 			<span className={`text-yellow-200 ${geistMono.className}`}>
 				+{word.score}
