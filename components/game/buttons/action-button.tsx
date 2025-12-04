@@ -17,7 +17,7 @@ const ActionButton = ({
 	onClick,
 	icon: Icon,
 	cost,
-	spend,
+	spend = true,
 	children,
 	isSelected,
 }: ActionButtonProps) => {
