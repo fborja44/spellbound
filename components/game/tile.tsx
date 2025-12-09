@@ -2,7 +2,7 @@ import { motion, MotionProps } from 'motion/react';
 import { Button } from '../ui/button';
 import { Bonus, Letter } from '@/lib/validators/game-state';
 import { CellControls } from './cell';
-import { cn } from '@/lib/utils';
+import { calculateLetterScore, cn } from '@/lib/utils';
 import { Zap } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
@@ -53,10 +53,10 @@ const Tile = ({
 			<p>{letter.char}</p>
 			<small
 				className={`absolute bottom-0 right-1 text-base font-bold tracking-tighter leading-tight ${
-					bonus === 'DL' ? 'text-green-400' : ''
+					bonus === 'TL' ? 'text-green-400' : ''
 				}`}
 			>
-				{letter.score * (bonus === 'DL' ? 2 : 1)}
+				{calculateLetterScore(letter, bonus)}
 			</small>
 			{isCharged && (
 				<small className='absolute bottom-0.5 left-0.5 text-sm text-violet-500'>

@@ -49,7 +49,7 @@ const useGame = () => {
 			});
 
 			// If word contains a bonus, move it
-			if (hasBonus(tiles, 'DL')) {
+			if (hasBonus(tiles, 'TL')) {
 				setDoubleLetterBonus();
 			}
 			if (hasBonus(tiles, '2X')) {
@@ -102,7 +102,7 @@ const useGame = () => {
 	const setDoubleLetterBonus = () => {
 		// Look for existing double word bonus and double letter bonus
 		const otherCoords = getBonusCoordinates('2X');
-		const prevCoords = getBonusCoordinates('DL');
+		const prevCoords = getBonusCoordinates('TL');
 
 		// Get new bonus coords
 		const { row, col } = randomizeBonusCoords(otherCoords ?? undefined);
@@ -113,12 +113,12 @@ const useGame = () => {
 		}
 
 		// Set bonus
-		setCellBonus(row, col, 'DL');
+		setCellBonus(row, col, 'TL');
 	};
 
 	const setDoubleWordBonus = () => {
 		// Look for existing double word bonus and double letter bonus
-		const otherCoords = getBonusCoordinates('DL');
+		const otherCoords = getBonusCoordinates('TL');
 		const prevCoords = getBonusCoordinates('2X');
 
 		// Get new bonus coords

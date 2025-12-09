@@ -12,7 +12,7 @@ export type Letter = z.infer<typeof LetterSchema>;
 export const CellSchema = z.object({
 	letter: LetterSchema,
 	isCharged: z.boolean().default(false),
-	bonus: z.enum(['DL', '2X']).nullable(),
+	bonus: z.enum(['TL', '2X']).nullable(),
 });
 export type Cell = z.infer<typeof CellSchema>;
 

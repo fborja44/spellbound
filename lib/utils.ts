@@ -70,8 +70,19 @@ export function isValidWord(word: string) {
 }
 
 /**
+ * Calculates the score of a single cell.
+ * @param letter - The letter to calculate the score for.
+ * @param bonus - The bonus applied to the letter, if any.
+ * @returns The score of the cell.
+ */
+export function calculateLetterScore(letter: Letter, bonus?: Bonus) {
+	const letterMultiplier = bonus === 'TL' ? 3 : 1;
+	return letter.score * letterMultiplier;
+}
+
+/**
  * Calculates the score of a word based on its letters.
- * @param word - An array of Letter objects representing the word.
+ * @param word - An array of Cell objects representing the word.
  * @returns The total score of the word.
  */
 export function calculateScore(word: Cell[]) {
@@ -79,8 +90,7 @@ export function calculateScore(word: Cell[]) {
 
 	const baseScore = word.reduce((sum, cell) => {
 		if (cell.bonus === '2X') hasDoubleWord = true;
-		const letterMultiplier = cell.bonus === 'DL' ? 2 : 1;
-		return sum + cell.letter.score * letterMultiplier;
+		return sum + calculateLetterScore(cell.letter, cell.bonus);
 	}, 0);
 
 	return hasDoubleWord ? baseScore * 2 : baseScore;

@@ -91,9 +91,9 @@ const WordItem = ({ word, index }: WordItemProps) => {
 				<span className='text-slate-500'>{index + 1}.</span>
 				<span className='tracking-widest'>{word.word}</span>
 				<div className='container-row gap-2'>
-					{hasBonus(word.tiles, 'DL') && (
+					{hasBonus(word.tiles, 'TL') && (
 						<span className='bg-green-400 text-background text-xxs font-black px-[5px] rounded-full leading-normal'>
-							DL
+							TL
 						</span>
 					)}
 					{hasBonus(word.tiles, '2X') && (

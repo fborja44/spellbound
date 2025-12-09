@@ -12,12 +12,12 @@ const WordDisplay = () => {
 
 	const tiles = selectedCells.map((cell) => board[cell.row][cell.col]);
 
-	const hasDL = hasBonus(tiles, 'DL');
+	const hasTL = hasBonus(tiles, 'TL');
 	const has2X = hasBonus(tiles, '2X');
 
 	const scoreColor = has2X
 		? 'text-red-400'
-		: hasDL
+		: hasTL
 		? 'text-green-400'
 		: 'text-yellow-200';
 
