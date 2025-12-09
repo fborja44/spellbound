@@ -8,7 +8,6 @@ import {
 	Cell,
 	CellPosition,
 	Letter,
-	Word,
 } from './validators/game-state';
 import { PROBABILITIES } from '@/constants/game';
 import { random, randomInt } from './random';
@@ -87,6 +86,13 @@ export function calculateScore(word: Cell[]) {
 	return hasDoubleWord ? baseScore * 2 : baseScore;
 }
 
+/**
+ * Randomizes a board.
+ * @param board - The board to randomize.
+ * @param usePrev - Whether to avoid repeating previous letters.
+ * @param saveBonus - Whether to keep existing bonuses.
+ * @returns The randomized board.
+ */
 export function randomizeBoard(
 	board: Board,
 	usePrev?: boolean,
@@ -134,6 +140,12 @@ export function randomizeBonusCoords(
 	return options[choice];
 }
 
+/**
+ * Checks if any of the given tiles has the specified bonus.
+ * @param tiles - The tiles to check.
+ * @param bonus - The bonus to look for.
+ * @returns True if any tile has the bonus, false otherwise.
+ */
 export function hasBonus(tiles: Cell[], bonus: Bonus) {
 	return tiles.some((cell) => cell.bonus === bonus);
 }
