@@ -1,7 +1,6 @@
 import { Sparkles } from 'lucide-react';
 import NewGameButton from '../buttons/new-game-button';
 import Link from 'next/link';
-import { Badge } from '../ui/badge';
 
 const Header = () => {
 	return (
