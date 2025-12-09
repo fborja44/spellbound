@@ -1,7 +1,6 @@
-import { CircleQuestionMark, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import NewGameButton from '../buttons/new-game-button';
 import Link from 'next/link';
-import { Button } from '../ui/button';
 
 const Header = () => {
 	return (

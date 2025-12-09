@@ -90,7 +90,7 @@ const WordItem = ({ word, index }: WordItemProps) => {
 			<div className='container-row gap-2'>
 				<span className='text-slate-500'>{index + 1}.</span>
 				<span className='tracking-widest'>{word.word}</span>
-				<div className='container-row gap-2 ml-1'>
+				<div className='container-row gap-2'>
 					{hasBonus(word.tiles, 'DL') && (
 						<span className='bg-green-400 text-background text-xxs font-black px-[5px] rounded-full leading-normal'>
 							DL

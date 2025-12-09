@@ -10,7 +10,7 @@ interface TileProps extends MotionProps, CellControls {
 	id?: string;
 	letter: Letter;
 	isCharged?: boolean;
-	bonus: Bonus;
+	bonus?: Bonus;
 	variant?: 'cell-swapping' | 'cell-selected' | 'cell';
 	disabled?: boolean;
 	onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;

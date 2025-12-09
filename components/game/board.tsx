@@ -2,7 +2,7 @@
 
 import useGameStore from '@/store/game-store';
 import Cell from './cell';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { CellPosition } from '@/lib/validators/game-state';
 import useGame from '@/hooks/useGame';
 
@@ -34,6 +34,7 @@ const Board = () => {
 		if (round === Math.ceil(maxRounds / 2)) {
 			setDoubleWordBonus();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [maxRounds, round, isCompleted]);
 
 	/**
@@ -88,14 +89,14 @@ const Board = () => {
 		});
 	};
 
-	const handlePointerUp = () => {
+	const handlePointerUp = useCallback(() => {
 		if (selectedCells.length === 0 || isCompleted) {
 			setIsDragging(false);
 			return;
 		}
 		submitWord();
 		setIsDragging(false);
-	};
+	}, [isCompleted, selectedCells.length, submitWord]);
 
 	const handleTouchMove = (e: React.TouchEvent<HTMLButtonElement>) => {
 		const touch = e.touches[0];
@@ -116,7 +117,7 @@ const Board = () => {
 			window.removeEventListener('mouseup', handlePointerUp);
 			window.removeEventListener('touchend', handlePointerUp);
 		};
-	}, []);
+	}, [handlePointerUp]);
 
 	// Compute SVG line coordinates
 	const [points, setPoints] = useState<{ x: number; y: number }[]>([]);
