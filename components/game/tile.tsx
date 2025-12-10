@@ -5,6 +5,7 @@ import { CellControls } from './cell';
 import { calculateLetterScore, cn } from '@/lib/utils';
 import { Zap } from 'lucide-react';
 import { Badge } from '../ui/badge';
+import { geistMono } from '@/fonts';
 
 interface TileProps extends MotionProps, CellControls {
 	id?: string;
@@ -15,6 +16,7 @@ interface TileProps extends MotionProps, CellControls {
 	disabled?: boolean;
 	onClick?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
 	className?: string;
+	size?: 'sm' | 'lg';
 }
 
 const MotionButton = motion.create(Button);
@@ -32,14 +34,32 @@ const Tile = ({
 	handleMouseEnter,
 	handleTouchMove,
 	className,
+	size = 'lg',
 	...props
 }: TileProps) => {
+	const buttonStyles = {
+		sm: 'text-3xl font-extrabold border-4 size-14 rounded-md',
+		lg: 'text-4xl font-extrabold border-5 size-18 rounded-lg',
+	};
+
+	const scoreStyles = {
+		sm: 'text-xs bottom-0 right-[3px]',
+		lg: 'text-base bottom-0 right-1',
+	};
+
+	const badgeStyles = {
+		sm: 'size-5.5 -top-2 -left-2.5 text-[10px] font-black border-2',
+		lg: 'size-7 -top-2.5 -left-3 text-sm font-black',
+	};
+
 	return (
 		<MotionButton
 			id={id}
 			variant={variant}
 			className={cn(
-				`relative container-center text-4xl font-extrabold border-5 size-18 rounded-lg`,
+				'relative container-center',
+				buttonStyles[size],
+				disabled && onClick ? 'opacity-50' : '',
 				className
 			)}
 			disabled={disabled}
@@ -52,9 +72,12 @@ const Tile = ({
 		>
 			<p>{letter.char}</p>
 			<small
-				className={`absolute bottom-0 right-1 text-base font-bold tracking-tighter leading-tight ${
-					bonus === 'TL' ? 'text-green-400' : ''
-				}`}
+				className={cn(
+					scoreStyles[size],
+					`absolute font-bold tracking-tighter leading-tight ${
+						geistMono.className
+					} ${bonus === 'TL' ? 'text-green-400' : ''}`
+				)}
 			>
 				{calculateLetterScore(letter, bonus)}
 			</small>
@@ -66,7 +89,7 @@ const Tile = ({
 			{bonus && (
 				<MotionBadge
 					variant={bonus}
-					className='absolute -top-2.5 -left-3 size-7 rounded-full font-black uppercase'
+					className={cn(badgeStyles[size], 'absolute rounded-full uppercase')}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}

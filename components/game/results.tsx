@@ -1,7 +1,7 @@
 'use client';
 
 import { geistMono } from '@/fonts';
-import { Word } from '@/lib/validators/game-state';
+import { Word as WordType } from '@/lib/validators/game-state';
 import useGameStore from '@/store/game-store';
 import { motion } from 'motion/react';
 import CountUp from 'react-countup';
@@ -9,13 +9,12 @@ import { Separator } from '../ui/separator';
 import { SendHorizonal, Sparkles } from 'lucide-react';
 import FadeDiv from '../animate/fade-div';
 import { Button } from '../ui/button';
-import { hasBonus } from '@/lib/utils';
+import Word from './word';
 
 const BASE_DELAY = 0.5;
 
 const Results = () => {
 	const wordHistory = useGameStore((state) => state.wordHistory);
-	const score = useGameStore((state) => state.score);
 	const maxRounds = useGameStore((state) => state.maxRounds);
 	const startNewGame = useGameStore((state) => state.startNewGame);
 
@@ -27,19 +26,19 @@ const Results = () => {
 
 	return (
 		<div className='container-col gap-2 py-2 w-full uppercase'>
-			<h3 className='font-bold text-slate-400'>Submitted Words</h3>
-			<div className='container-col w-4/5 gap-6'>
-				<ol className='flex flex-col w-full gap-3 text-lg'>
+			<h3 className='font-bold text-slate-400'>Your Words</h3>
+			<div className='container-col min-w-full gap-6'>
+				<ol className='flex flex-col items-center w-full gap-4 text-lg py-4'>
 					{wordHistory.map((word, index) => (
 						<WordItem key={`result-word-${index}`} word={word} index={index} />
 					))}
 				</ol>
-				<FadeDiv delay={scoreDelay} className='w-full'>
+				<FadeDiv delay={scoreDelay} className='w-full max-w-board'>
 					<Separator className='h-0.5! rounded-full bg-slate-800' />
 				</FadeDiv>
 				<FadeDiv
 					delay={scoreDelay}
-					className={`container-row justify-between font-extrabold w-full`}
+					className={`container-row justify-between font-extrabold w-full max-w-board`}
 				>
 					<div className='container-row gap-2'>
 						<Sparkles strokeWidth={2.5} className='size-7  text-purple-500' />
@@ -49,7 +48,7 @@ const Results = () => {
 						className={`relative uppercase font-black text-4xl leading-5 ${geistMono.className}`}
 						preserveValue
 						start={0}
-						end={score}
+						end={wordHistory.reduce((acc, word) => acc + word.score, 0)}
 						duration={4}
 						delay={scoreDelay}
 						useEasing
@@ -71,7 +70,7 @@ const Results = () => {
 export default Results;
 
 interface WordItemProps {
-	word: Word;
+	word: WordType;
 	index: number;
 }
 
@@ -85,25 +84,15 @@ const WordItem = ({ word, index }: WordItemProps) => {
 				duration: 0.75,
 				delay: BASE_DELAY * index,
 			}}
-			className='container-row justify-between font-extrabold'
+			className='relative container-row justify-between gap-4 font-extrabold'
 		>
 			<div className='container-row gap-2'>
-				<span className='text-slate-500'>{index + 1}.</span>
-				<span className='tracking-widest'>{word.word}</span>
-				<div className='container-row gap-2'>
-					{hasBonus(word.tiles, 'TL') && (
-						<span className='bg-green-400 text-background text-xxs font-black px-[5px] rounded-full leading-normal'>
-							TL
-						</span>
-					)}
-					{hasBonus(word.tiles, '2X') && (
-						<span className='bg-red-400 text-background text-xxs font-black px-[5px] rounded-full leading-normal'>
-							2X
-						</span>
-					)}
-				</div>
+				{/* <span className='text-slate-500'>{index + 1}.</span> */}
+				<Word word={word} />
 			</div>
-			<span className={`text-yellow-200 ${geistMono.className}`}>
+			<span
+				className={`absolute left-full ml-4 text-yellow-200 ${geistMono.className}`}
+			>
 				+{word.score}
 			</span>
 		</motion.li>
