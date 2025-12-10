@@ -9,8 +9,8 @@ const Header = () => {
 				<h1 className='container-row gap-2 font-bold text-xl hover:text-yellow-200 transtion-colors duration-200'>
 					<Sparkles strokeWidth={2.5} fill='white' />
 					<span>spellbound</span>
-					<small className='bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full text-xs font-bold'>
-						alpha v0.5.0
+					<small className='bg-slate-900 border border-slate-800 text-slate-500 px-2 py-0.5 rounded-full text-xs font-bold'>
+						v0.1.0-alpha
 					</small>
 				</h1>
 			</Link>
