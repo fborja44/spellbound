@@ -13,7 +13,7 @@ import {
 	DialogTrigger,
 } from '../ui/dialog';
 import Tile from '../game/tile';
-import useGameStore from '@/store/game-store';
+import { useGameActions, useIsSwapping } from '@/store/game-store';
 import { Cell, Letter } from '@/lib/validators/game-state';
 import { useState } from 'react';
 
@@ -27,10 +27,8 @@ interface SwapDialogProps {
 const SwapDialog = ({ prevCell, row, col, children }: SwapDialogProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const setCell = useGameStore((state) => state.setCell);
-	const changeEnergy = useGameStore((state) => state.changeEnergy);
-	const isSwapping = useGameStore((state) => state.isSwapping);
-	const setIsSwapping = useGameStore((state) => state.setIsSwapping);
+	const isSwapping = useIsSwapping();
+	const { changeEnergy, setCell, setIsSwapping } = useGameActions();
 
 	const handleSwap = (newLetter: Letter) => {
 		if (newLetter.char === prevCell.letter.char) return;

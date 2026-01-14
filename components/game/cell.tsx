@@ -1,5 +1,9 @@
 import type { Cell } from '@/lib/validators/game-state';
-import useGameStore from '@/store/game-store';
+import {
+	useIsCompleted,
+	useIsSwapping,
+	useSelectedCells,
+} from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
 import SwapDialog from '../dialogs/swap-dialog';
 import Tile from './tile';
@@ -27,9 +31,9 @@ const Cell = ({
 	handleMouseEnter,
 	handleTouchMove,
 }: CellProps) => {
-	const selectedCells = useGameStore((state) => state.selectedCells);
-	const isCompleted = useGameStore((state) => state.isCompleted);
-	const isSwapping = useGameStore((state) => state.isSwapping);
+	const selectedCells = useSelectedCells();
+	const isCompleted = useIsCompleted();
+	const isSwapping = useIsSwapping();
 
 	const isSelected = selectedCells.some((c) => c.row === row && c.col === col);
 	const { letter, isCharged, bonus } = cell;

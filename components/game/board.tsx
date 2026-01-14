@@ -1,22 +1,30 @@
 'use client';
 
-import useGameStore from '@/store/game-store';
+import {
+	useBoard,
+	useGameActions,
+	useIsCompleted,
+	useIsSwapping,
+	useMaxRounds,
+	useRound,
+	useSelectedCells,
+} from '@/store/game-store';
 import Cell from './cell';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { CellPosition } from '@/lib/validators/game-state';
 import useGame from '@/hooks/use-game';
 
 const Board = () => {
-	const round = useGameStore((state) => state.round);
-	const maxRounds = useGameStore((state) => state.maxRounds);
-	const board = useGameStore((state) => state.board);
-	const randomizeBoard = useGameStore((state) => state.randomizeBoard);
-	const selectedCells = useGameStore((state) => state.selectedCells);
-	const setSelectedCells = useGameStore((state) => state.setSelectedCells);
-	const isCompleted = useGameStore((state) => state.isCompleted);
-	const isSwapping = useGameStore((state) => state.isSwapping);
+	const round = useRound();
+	const maxRounds = useMaxRounds();
+	const board = useBoard();
+	const selectedCells = useSelectedCells();
+	const isCompleted = useIsCompleted();
+	const isSwapping = useIsSwapping();
 
-	const { submitWord, setDoubleLetterBonus, setDoubleWordBonus } = useGame();
+	const { randomizeBoard, setSelectedCells, changeBonus } = useGameActions();
+
+	const { handleSubmitWord } = useGame();
 
 	// selection + dragging state
 	const [isDragging, setIsDragging] = useState(false);
@@ -29,10 +37,10 @@ const Board = () => {
 	useEffect(() => {
 		if (isCompleted) return;
 		if (round === 2) {
-			setDoubleLetterBonus();
+			changeBonus('TL');
 		}
 		if (round === Math.ceil(maxRounds / 2)) {
-			setDoubleWordBonus();
+			changeBonus('2X');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [maxRounds, round, isCompleted]);
@@ -94,9 +102,9 @@ const Board = () => {
 			setIsDragging(false);
 			return;
 		}
-		submitWord();
+		handleSubmitWord();
 		setIsDragging(false);
-	}, [isCompleted, selectedCells.length, submitWord]);
+	}, [isCompleted, selectedCells.length, handleSubmitWord]);
 
 	const handleTouchMove = (e: React.TouchEvent<HTMLButtonElement>) => {
 		const touch = e.touches[0];

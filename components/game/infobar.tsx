@@ -1,12 +1,12 @@
 'use client';
 
-import useGameStore from '@/store/game-store';
+import { useIsCompleted } from '@/store/game-store';
 import Score from './info/score';
 import WordHistory from './info/word-history';
 import FadeDiv from '../animate/fade-div';
 
 const InfoBar = () => {
-	const isCompleted = useGameStore((state) => state.isCompleted);
+	const isCompleted = useIsCompleted();
 
 	return (
 		!isCompleted && (

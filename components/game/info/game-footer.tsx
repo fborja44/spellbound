@@ -1,10 +1,10 @@
 'use client';
 
-import useGameStore from '@/store/game-store';
+import { useIsSwapping } from '@/store/game-store';
 import { AnimatePresence, motion } from 'motion/react';
 
 const GameFooter = () => {
-	const isSwapping = useGameStore((state) => state.isSwapping);
+	const isSwapping = useIsSwapping();
 
 	return (
 		<AnimatePresence mode='wait'>

@@ -1,7 +1,7 @@
 'use client';
 
 import { geistMono } from '@/fonts';
-import useGameStore from '@/store/game-store';
+import { useGameActions, useScore, useWordHistory } from '@/store/game-store';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
@@ -9,9 +9,9 @@ import CountUp from 'react-countup';
 const Score = () => {
 	const [pendingPoints, setPendingPoints] = useState<number | null>(null);
 
-	const score = useGameStore((state) => state.score);
-	const setScore = useGameStore((state) => state.setScore);
-	const wordHistory = useGameStore((state) => state.wordHistory);
+	const score = useScore();
+	const wordHistory = useWordHistory();
+	const { setScore } = useGameActions();
 
 	useEffect(() => {
 		if (!wordHistory.length) {

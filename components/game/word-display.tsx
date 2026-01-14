@@ -1,16 +1,20 @@
 'use client';
 
 import { calculateScore, hasBonus } from '@/lib/utils';
-import useGameStore from '@/store/game-store';
+import {
+	useGameActions,
+	useIsCompleted,
+	useSelectedCells,
+} from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
 import FadeDiv from '../animate/fade-div';
 
 const WordDisplay = () => {
-	const board = useGameStore((state) => state.board);
-	const selectedCells = useGameStore((state) => state.selectedCells);
-	const isCompleted = useGameStore((state) => state.isCompleted);
+	const selectedCells = useSelectedCells();
+	const isCompleted = useIsCompleted();
+	const { getSelectedWord } = useGameActions();
 
-	const tiles = selectedCells.map((cell) => board[cell.row][cell.col]);
+	const { tiles } = getSelectedWord();
 
 	const hasTL = hasBonus(tiles, 'TL');
 	const has2X = hasBonus(tiles, '2X');

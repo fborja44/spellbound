@@ -2,10 +2,11 @@
 
 import { RefreshCw } from 'lucide-react';
 import ActionButton from './action-button';
-import useGameStore from '@/store/game-store';
+import { useGameActions } from '@/store/game-store';
 
 const RefreshButton = () => {
-	const randomizeBoard = useGameStore((state) => state.randomizeBoard);
+	const { randomizeBoard } = useGameActions();
+
 	const handleRefresh = () => {
 		randomizeBoard(true);
 	};

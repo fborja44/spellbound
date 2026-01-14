@@ -126,7 +126,7 @@ export function randomizeBoard(
 export function randomizeBonusCoords(
 	excludeCoords?: CellPosition
 ): CellPosition {
-	const options: Array<CellPosition> = [];
+	const positions: Array<CellPosition> = [];
 	const { row: excludeRow, col: excludeCol } = excludeCoords ?? {};
 
 	for (let r = 0; r < 5; r++) {
@@ -138,7 +138,7 @@ export function randomizeBonusCoords(
 				c === excludeCol;
 
 			if (!isExcluded) {
-				options.push({
+				positions.push({
 					row: r,
 					col: c,
 				});
@@ -146,8 +146,8 @@ export function randomizeBonusCoords(
 		}
 	}
 
-	const choice = randomInt(options.length);
-	return options[choice];
+	const newIndex = randomInt(positions.length);
+	return positions[newIndex];
 }
 
 /**

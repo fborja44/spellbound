@@ -1,12 +1,12 @@
 'use client';
 
 import { MAX_ENERGY } from '@/constants/game';
-import useGameStore from '@/store/game-store';
+import { useEnergy } from '@/store/game-store';
 import { Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 
 const EnergyBar = () => {
-	const energy = useGameStore((store) => store.energy);
+	const energy = useEnergy();
 
 	return (
 		<div className='flex flex-col-reverse gap-1.5 flex-1 w-full h-full'>

@@ -1,11 +1,11 @@
 'use client';
 
 import { Word } from '@/lib/validators/game-state';
-import useGameStore from '@/store/game-store';
+import { useWordHistory } from '@/store/game-store';
 import { motion } from 'motion/react';
 
 const WordHistory = () => {
-	const wordHistory = useGameStore((state) => state.wordHistory);
+	const wordHistory = useWordHistory();
 
 	return (
 		<div className='flex flex-col gap-2'>

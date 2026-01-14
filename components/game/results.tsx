@@ -2,7 +2,11 @@
 
 import { geistMono } from '@/fonts';
 import { Word as WordType } from '@/lib/validators/game-state';
-import useGameStore from '@/store/game-store';
+import {
+	useGameActions,
+	useMaxRounds,
+	useWordHistory,
+} from '@/store/game-store';
 import { motion } from 'motion/react';
 import CountUp from 'react-countup';
 import { Separator } from '../ui/separator';
@@ -14,9 +18,9 @@ import Word from './word';
 const BASE_DELAY = 0.5;
 
 const Results = () => {
-	const wordHistory = useGameStore((state) => state.wordHistory);
-	const maxRounds = useGameStore((state) => state.maxRounds);
-	const startNewGame = useGameStore((state) => state.startNewGame);
+	const wordHistory = useWordHistory();
+	const maxRounds = useMaxRounds();
+	const { startNewGame } = useGameActions();
 
 	const scoreDelay = BASE_DELAY * wordHistory.length;
 

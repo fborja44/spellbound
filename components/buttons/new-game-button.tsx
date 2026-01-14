@@ -5,7 +5,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import useGameStore from '@/store/game-store';
+import { useGameActions } from '@/store/game-store';
 import { Plus } from 'lucide-react';
 import { MAX_ROUNDS } from '@/constants/game';
 
@@ -13,7 +13,7 @@ const NewGameButton = () => {
 	const [maxRounds, setMaxRounds] = useState(5);
 	const [open, setOpen] = useState(false);
 
-	const startNewGame = useGameStore((state) => state.startNewGame);
+	const { startNewGame } = useGameActions();
 
 	const handleNewGame = () => {
 		startNewGame(maxRounds);

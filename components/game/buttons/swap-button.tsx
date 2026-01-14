@@ -2,11 +2,11 @@
 
 import { Shuffle } from 'lucide-react';
 import ActionButton from './action-button';
-import useGameStore from '@/store/game-store';
+import { useGameActions, useIsSwapping } from '@/store/game-store';
 
 const SwapButton = () => {
-	const isSwapping = useGameStore((state) => state.isSwapping);
-	const setIsSwapping = useGameStore((state) => state.setIsSwapping);
+	const isSwapping = useIsSwapping();
+	const { setIsSwapping } = useGameActions();
 
 	const handleSwap = () => {
 		setIsSwapping(!isSwapping);

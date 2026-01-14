@@ -1,10 +1,10 @@
-import useGameStore from '@/store/game-store';
+import { useMaxRounds, useRound } from '@/store/game-store';
 import { Timer } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 const Rounds = () => {
-	const round = useGameStore((state) => state.round);
-	const maxRounds = useGameStore((state) => state.maxRounds);
+	const round = useRound();
+	const maxRounds = useMaxRounds();
 
 	return (
 		<div className='container-row gap-1'>

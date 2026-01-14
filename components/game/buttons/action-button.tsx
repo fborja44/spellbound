@@ -1,7 +1,7 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
-import useGameStore from '@/store/game-store';
+import { useEnergy, useGameActions, useIsCompleted } from '@/store/game-store';
 import { ElementType } from 'react';
 
 interface ActionButtonProps {
@@ -21,9 +21,9 @@ const ActionButton = ({
 	children,
 	isSelected,
 }: ActionButtonProps) => {
-	const energy = useGameStore((store) => store.energy);
-	const changeEnergy = useGameStore((store) => store.changeEnergy);
-	const isCompleted = useGameStore((store) => store.isCompleted);
+	const energy = useEnergy();
+	const isCompleted = useIsCompleted();
+	const { changeEnergy } = useGameActions();
 
 	return (
 		<button

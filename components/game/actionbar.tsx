@@ -5,11 +5,11 @@ import SwapButton from './buttons/swap-button';
 import EnergyBar from './info/energy';
 import { geistMono } from '@/fonts';
 import Rounds from './info/rounds';
-import useGameStore from '@/store/game-store';
+import { useIsCompleted } from '@/store/game-store';
 import FadeDiv from '../animate/fade-div';
 
 const ActionBar = () => {
-	const isCompleted = useGameStore((state) => state.isCompleted);
+	const isCompleted = useIsCompleted();
 
 	return (
 		!isCompleted && (
