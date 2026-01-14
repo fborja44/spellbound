@@ -10,7 +10,7 @@ const Header = () => {
 					<Sparkles strokeWidth={2.5} fill='white' />
 					<span>spellbound</span>
 					<small className='bg-slate-900 border border-slate-800 text-slate-500 px-2 py-0.5 rounded-full text-xs font-bold'>
-						v0.1.0-alpha
+						v0.1.1-alpha
 					</small>
 				</h1>
 			</Link>
