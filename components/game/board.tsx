@@ -4,7 +4,7 @@ import useGameStore from '@/store/game-store';
 import Cell from './cell';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { CellPosition } from '@/lib/validators/game-state';
-import useGame from '@/hooks/useGame';
+import useGame from '@/hooks/use-game';
 
 const Board = () => {
 	const round = useGameStore((state) => state.round);

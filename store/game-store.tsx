@@ -11,6 +11,8 @@ import { pickRandomLetter, randomizeBoard } from '@/lib/utils';
 import { DEFAULT_ENERGY, MAX_ENERGY, PROBABILITIES } from '@/constants/game';
 import { setSeed as applySeed, generateSeed, random } from '@/lib/random';
 
+// ZUSTAND STORE FOR SINGLE-PLAYER STATE MANAGEMENT
+
 const initialSeed = generateSeed();
 
 export interface GameStore extends GameState {
