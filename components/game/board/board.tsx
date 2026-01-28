@@ -9,7 +9,7 @@ import {
 	useRound,
 	useSelectedCells,
 } from '@/store/game-store';
-import Cell from './cell';
+import Cell from './board-cell';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { CellPosition } from '@/lib/validators/game-state';
 import useGame from '@/hooks/use-game';
@@ -57,7 +57,7 @@ const Board = () => {
 		return dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0);
 	};
 
-	// pointer handlers
+	// Pointer handlers
 	const handlePointerDown = (row: number, col: number) => {
 		if (isCompleted) return;
 
@@ -110,7 +110,7 @@ const Board = () => {
 		const touch = e.touches[0];
 		const target = document.elementFromPoint(
 			touch.clientX,
-			touch.clientY
+			touch.clientY,
 		) as HTMLElement;
 		if (target?.id?.startsWith('cell-')) {
 			const [, r, c] = target.id.split('-');
@@ -188,7 +188,7 @@ const Board = () => {
 
 			{/* Game board */}
 			<section
-				className='grid grid-cols-5 grid-rows-5 gap-3.5 relative z-10 size-board'
+				className='grid grid-cols-5 grid-rows-5 gap-2.5 sm:gap-3.5 items-center center relative z-10 board-size'
 				onMouseLeave={handlePointerUp}
 			>
 				{board.flat().map((cell, index) => {

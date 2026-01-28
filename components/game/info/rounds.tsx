@@ -1,42 +1,37 @@
+'use client';
+
+import FadeDiv from '@/components/animate/fade-div';
+import { geistMono } from '@/fonts';
 import { useMaxRounds, useRound } from '@/store/game-store';
 import { Timer } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
 
 const Rounds = () => {
 	const round = useRound();
 	const maxRounds = useMaxRounds();
 
 	return (
-		<div className='container-row gap-1'>
-			<Timer className='size-6 stroke-3 text-slate-400' />
-			<div className='min-w-11'>
-				<AnimatePresence mode='wait'>
-					<motion.span
-						key={`round-${round}`}
-						initial={{ opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: 50, opacity: 0 }}
-						transition={{
-							duration: 0.5,
-						}}
-					>
-						{round}
-					</motion.span>
-				</AnimatePresence>
-				/
-				<AnimatePresence mode='wait'>
-					<motion.span
-						key={`max-${maxRounds}`}
-						initial={{ opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
-						exit={{ y: 50, opacity: 0 }}
-						transition={{
-							duration: 0.5,
-						}}
-					>
-						{maxRounds}
-					</motion.span>
-				</AnimatePresence>
+		<div className='flex flex-col gap-0.5'>
+			<span className='sm:hidden uppercase font-bold text-sm text-slate-400 justify-self-end text-right'>
+				Round
+			</span>
+			<div
+				className={`container-row justify-end gap-1 text-2xl font-black ${geistMono.className}`}
+			>
+				<Timer className='hidden sm:inline size-6 stroke-3 text-slate-400' />
+				<div className='min-w-11 leading-5 '>
+					<AnimatePresence mode='wait'>
+						<FadeDiv id={`round-${round}`} className='inline'>
+							{round}
+						</FadeDiv>
+					</AnimatePresence>
+					/
+					<AnimatePresence mode='wait'>
+						<FadeDiv id={`max-rounds-${maxRounds}`} className='inline'>
+							{maxRounds}
+						</FadeDiv>
+					</AnimatePresence>
+				</div>
 			</div>
 		</div>
 	);

@@ -29,7 +29,7 @@ const Score = () => {
 	}, [wordHistory]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
-		<div className='flex flex-col gap-0.5 justify-center game-header-h'>
+		<div className='flex flex-col gap-0.5 justify-center sm:h-game-header'>
 			<span className='uppercase font-bold text-sm text-slate-400'>Score</span>
 			<div className={`container-row relative w-fit ${geistMono.className}`}>
 				<CountUp
