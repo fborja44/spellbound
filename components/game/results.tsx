@@ -37,12 +37,12 @@ const Results = () => {
 						<WordItem key={`result-word-${index}`} word={word} index={index} />
 					))}
 				</ol>
-				<FadeDiv delay={scoreDelay} className='w-full max-w-board'>
+				<FadeDiv delay={scoreDelay} className='w-full board-w'>
 					<Separator className='h-0.5! rounded-full bg-slate-800' />
 				</FadeDiv>
 				<FadeDiv
 					delay={scoreDelay}
-					className={`container-row justify-between font-extrabold w-full max-w-board`}
+					className={`container-row justify-between font-extrabold w-full board-w`}
 				>
 					<div className='container-row gap-2'>
 						<Sparkles strokeWidth={2.5} className='size-7  text-purple-500' />

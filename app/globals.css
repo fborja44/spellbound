@@ -42,7 +42,10 @@
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
 
+	--spacing-game-header: var(--spacing-15);
+
 	--spacing-board: 415px;
+	--spacing-board-sm: 380px;
 	--spacing-game-header: 60px;
 	--spacing-game: calc(var(--spacing-board) + var(--spacing-game-header));
 
@@ -144,7 +147,11 @@
 		@apply flex flex-row items-center justify-center;
 	}
 
-	.game-header-h {
-		@apply h-15;
+	.board-w {
+		@apply w-board-sm sm:w-board max-w-board-sm sm:max-w-board;
+	}
+
+	.board-size {
+		@apply size-board-sm sm:size-board;
 	}
 }

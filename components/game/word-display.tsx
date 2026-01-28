@@ -22,11 +22,11 @@ const WordDisplay = () => {
 	const scoreColor = has2X
 		? 'text-red-400'
 		: hasTL
-		? 'text-green-400'
-		: 'text-yellow-200';
+			? 'text-green-400'
+			: 'text-yellow-200';
 
 	return (
-		<div className='container-row items-center justify-center border-5 border-slate-500 bg-background max-w-full w-board game-header-h rounded-lg px-4 text-3xl font-extrabold tracking-wide uppercase'>
+		<div className='container-row items-center justify-center border-5 border-slate-500 bg-background max-w-full board-w h-game-header rounded-lg px-4 text-3xl font-extrabold tracking-wide uppercase'>
 			<AnimatePresence mode='wait'>
 				{!isCompleted ? (
 					<FadeDiv className='container-row justify-center gap-3 w-full mx-auto'>

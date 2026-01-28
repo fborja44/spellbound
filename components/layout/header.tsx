@@ -4,12 +4,12 @@ import Link from 'next/link';
 
 const Header = () => {
 	return (
-		<header className='container-row justify-between h-16 px-4 w-full'>
+		<header className='container-row justify-between h-16 px-3 sm:px-4 w-full'>
 			<Link href='/'>
-				<h1 className='container-row gap-2 font-bold text-xl hover:text-yellow-200 transtion-colors duration-200'>
-					<Sparkles strokeWidth={2.5} fill='white' />
-					<span>spellbound</span>
-					<small className='bg-slate-900 border border-slate-800 text-slate-500 px-2 py-0.5 rounded-full text-xs font-bold'>
+				<h1 className='container-row gap-2 font-bold text-2xl hover:text-yellow-200 transtion-colors duration-200'>
+					<Sparkles strokeWidth={2.5} fill='white' className='size-6' />
+					<span className='relative bottom-0.5'>spellbound</span>
+					<small className='hidden sm:inline bg-slate-900 border border-slate-800 text-slate-500 px-2 py-0.5 rounded-full text-xs font-bold'>
 						v0.1.1-alpha
 					</small>
 				</h1>

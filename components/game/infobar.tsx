@@ -12,7 +12,7 @@ const InfoBar = () => {
 		!isCompleted && (
 			<FadeDiv
 				id={`infobar-${!isCompleted}`}
-				className='flex flex-col gap-1 min-w-18 w-18 max-h-game'
+				className='hidden sm:flex flex-col gap-1 min-w-18 w-18 max-h-game'
 			>
 				<Score />
 				<WordHistory />

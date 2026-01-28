@@ -5,8 +5,8 @@ import {
 	useSelectedCells,
 } from '@/store/game-store';
 import { AnimatePresence } from 'motion/react';
-import SwapDialog from '../dialogs/swap-dialog';
-import Tile from './tile';
+import SwapDialog from '../../dialogs/swap-dialog';
+import Tile from '../tile';
 
 export interface CellControls {
 	handleMouseDown?: () => void;
@@ -60,8 +60,8 @@ const Cell = ({
 							isSwapping
 								? 'cell-swapping'
 								: isSelected
-								? 'cell-selected'
-								: 'cell'
+									? 'cell-selected'
+									: 'cell'
 						}
 						initial={{ opacity: 0 }}
 						animate={{ y: 0, opacity: 1 }}

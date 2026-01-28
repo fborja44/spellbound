@@ -35,7 +35,7 @@ const ActionButton = ({
 					changeEnergy(-(cost ?? 0));
 				}
 			}}
-			className={`relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-full transition-colors ${
+			className={`relative flex flex-col items-center gap-1 uppercase text-base font-bold tracking-wider not-disabled:hover:cursor-pointer disabled:opacity-50 w-18 transition-colors ${
 				isSelected ? 'text-purple-300' : 'text-inherit hover:text-yellow-200'
 			}`}
 			disabled={(cost ? energy < cost : false) || isCompleted}
