@@ -16,7 +16,7 @@ const EnergyBar = ({ direction = 'vertical' }: EnergyBarProps) => {
 	return (
 		<div
 			className={cn(
-				'flex gap-2 sm:gap-1.5 flex-1 w-full h-full',
+				'flex gap-1 sm:gap-1.5 flex-1 w-full h-full -z-20',
 				direction === 'vertical' ? 'flex-col-reverse' : 'flex-row',
 			)}
 		>
@@ -46,7 +46,7 @@ const EnergyCell = ({ isFilled, direction }: EnergyCellProps) => {
 	return (
 		<div
 			className={cn(
-				`container-center rounded-[6px] sm:rounded flex-1 transition-colors duration-300`,
+				`container-center rounded flex-1 transition-colors duration-300`,
 				bgClass,
 				direction === 'vertical' ? 'w-full' : 'h-full',
 			)}
@@ -58,9 +58,7 @@ const EnergyCell = ({ isFilled, direction }: EnergyCellProps) => {
 					exit={{ scale: 0, opacity: 0 }}
 					transition={{ duration: 0.5 }}
 				>
-					<Zap
-						className={cn('size-4 sm:size-3.5 text-purple-900 fill-purple-900')}
-					/>
+					<Zap className={cn('size-3.5 text-purple-900 fill-purple-900')} />
 				</motion.div>
 			)}
 		</div>
