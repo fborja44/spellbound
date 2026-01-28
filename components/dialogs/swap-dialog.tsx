@@ -54,7 +54,7 @@ const SwapDialog = ({ prevCell, row, col, children }: SwapDialogProps) => {
 				{children}
 			</DialogTrigger>
 			<DialogContent
-				className='bg-transparent border-transparent w-[900px]'
+				className='bg-transparent border-transparent lg:w-[900px]'
 				showCloseButton={false}
 			>
 				<DialogHeader>
