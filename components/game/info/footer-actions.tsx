@@ -3,7 +3,7 @@ import SwapButton from '../buttons/swap-button';
 
 const FooterActions = () => {
 	return (
-		<div className='sm:hidden container-row justify-center gap-8 relative pt-4'>
+		<div className='flex flex-row items-center justify-center sm:hidden gap-8 relative pt-4'>
 			<RefreshButton />
 			<SwapButton />
 		</div>
